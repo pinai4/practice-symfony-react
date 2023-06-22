@@ -1,0 +1,56 @@
+doctrine:
+    dbal:
+        #url: '%env(resolve:DATABASE_URL)%'
+        url: 'postgresql://%env(resolve:DB_USER)%:%env(resolve:DB_PASSWORD)%@%env(resolve:DB_HOST)%/%env(resolve:DB_NAME)%?charset=utf8'
+
+        # IMPORTANT: You MUST configure your server version,
+        # either here or in the DATABASE_URL env var (see .env file)
+        #server_version: '13'
+        types:
+            user_user_email: 'App\Model\Auth\Entity\User\EmailType'
+            user_user_role: 'App\Model\Auth\Entity\User\RoleType'
+            domain_contact_email: 'App\Model\Domain\Entity\Contact\EmailType'
+            domain_domain_linked_contact_type: 'App\Model\Domain\Entity\Domain\LinkedContact\TypeType'
+
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            Auth:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Model/Auth/Entity'
+                prefix: 'App\Model\Auth\Entity'
+                alias: User
+            Domain:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Model/Domain/Entity'
+                prefix: 'App\Model\Domain\Entity'
+                alias: Domain
+
+when@test:
+    doctrine:
+        dbal:
+            # "TEST_TOKEN" is typically set by ParaTest
+            dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+
+when@prod:
+    doctrine:
+        orm:
+            auto_generate_proxy_classes: false
+            query_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.result_cache_pool
+
+    framework:
+        cache:
+            pools:
+                doctrine.result_cache_pool:
+                    adapter: cache.app
+                doctrine.system_cache_pool:
+                    adapter: cache.system

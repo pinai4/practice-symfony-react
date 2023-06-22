@@ -1,0 +1,31 @@
+league_oauth2_server:
+
+  authorization_server:
+    private_key: '%env(OAUTH_PRIVATE_KEY)%'
+    private_key_passphrase: null
+    encryption_key: '%env(OAUTH_ENCRYPTION_KEY)%'
+    encryption_key_type: plain
+    access_token_ttl: P1D
+    refresh_token_ttl: P1M
+    auth_code_ttl: PT10M
+    enable_client_credentials_grant: true
+    enable_password_grant: true
+    enable_refresh_token_grant: true
+    enable_auth_code_grant: true
+    require_code_challenge_for_public_clients: true
+
+  resource_server:
+    public_key: '%env(OAUTH_PUBLIC_KEY)%'
+
+  scopes:
+    available: ['common']
+    default: ['common']
+
+  persistence:
+    doctrine:
+      entity_manager: default
+
+  role_prefix: ROLE_OAUTH2_
+
+  client:
+    classname: League\Bundle\OAuth2ServerBundle\Model\Client

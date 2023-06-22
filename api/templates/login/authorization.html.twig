@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <p>Application is requesting access to your account</p>
+
+    <form name="authorization" method="post" action="">
+        <div id="authorization">
+            <div class="button-row">
+                <button type="submit" name="allow" class="submit">Allow</button>
+            </div>
+            <div class="button-row button-row-margin-top-10">
+                <button type="submit" name="deny" class="submit">Deny</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

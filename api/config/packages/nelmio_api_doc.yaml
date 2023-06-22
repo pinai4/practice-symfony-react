@@ -1,0 +1,43 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: Domains Manager
+            description: This is an awesome app!
+            version: 1.0.0
+
+        components:
+            securitySchemes:
+                oAuth2:
+                    type: oauth2
+                    description: This API uses OAuth2 with the password grant flow.
+                    flows:
+                        password:
+                            tokenUrl: /token
+                            scopes:
+                                common: Common
+            schemas:
+                Pagination:
+                    type: object
+                    properties:
+                        count: { type: integer, example: 10 }
+                        total: { type: integer, example: 67 }
+                        per_page: { type: integer, example: 10 }
+                        page: { type: integer, example: 1 }
+                        pages: { type: integer, example: 7 }
+
+                Error409:
+                    type: object
+                    properties:
+                        message:
+                            type: string
+                            example: Error Description
+
+        security:
+            - oAuth2: [common]
+
+    models: { use_jms: false }
+
+    areas: # to filter documented areas
+        path_patterns:
+            - ^/api(?!/doc|\.json|/test/send-messages$) # Accepts routes under /api except /api/doc
+            #- ^/api(?!/doc$) # Accepts routes under /api except /api/doc

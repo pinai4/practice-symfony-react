@@ -1,0 +1,12 @@
+framework:
+    mailer:
+        dsn: '%env(MAILER_DSN)%'
+        envelope:
+            sender: 'domains-manager@example.com'
+        headers:
+            From: 'Support Team <domains-manager@example.com>'
+
+when@test:
+    framework:
+        mailer:
+            dsn: 'null://null'

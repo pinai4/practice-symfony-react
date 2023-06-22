@@ -1,0 +1,96 @@
+1) Installed React app in 'frontend/my-app' directory
+docker-compose run --rm frontend-node-cli yarn create react-app my-app
+Note after installation:
+#######
+Inside that directory, you can run several commands:
+
+  yarn start
+    Starts the development server.
+
+  yarn build
+    Bundles the app into static files for production.
+
+  yarn test
+    Starts the test runner.
+
+  yarn eject
+    Removes this tool and copies build dependencies, configuration files
+    and scripts into the app directory. If you do this, you can’t go back!
+
+We suggest that you begin by typing:
+
+  cd my-app
+  yarn start
+#######
+
+2) Moved all files and folders (except 'node_modules') to 'frontend' directory and removed 'frontend/my-app' directory
+
+3) Cleared .gitignore from unnecessary records
+
+4) Extracted 'devDependencies' section in package.json file and remove "eject" scripts command
+
+5) Replaced default react app files in directories src and public with our project files. Changed files extension .js to .jsx
+
+6) Installed and configured ESlint tool
+docker-compose run --rm frontend-node-cli yarn add eslint --dev
+docker-compose run --rm frontend-node-cli yarn create @eslint/config
+docker-compose run --rm frontend-node-cli yarn add eslint-plugin-react@latest eslint-config-standard@latest eslint@^8.0.1 eslint-plugin-import@^2.25.2 eslint-plugin-n@^15.0.0 eslint-plugin-promise@^6.0.0 --dev
+
+7) Installed and configured styleLint tool
+docker-compose run --rm frontend-node-cli yarn add stylelint stylelint-config-standard --dev
+Create a .stylelintrc.json configuration file in the root of your project with the following content:
+{
+  "extends": "stylelint-config-standard"
+}
+
+8) Installed and configured Prettier tool
+docker-compose run --rm frontend-node-cli yarn add --dev --exact prettier
+docker-compose run --rm frontend-node-cli yarn add --dev eslint-config-prettier eslint-plugin-prettier
+docker-compose run --rm frontend-node-cli yarn add --dev stylelint-config-prettier stylelint-prettier
+Created conf file .prettierrc with content:
+{
+  "printWidth": 80,
+  "arrowParens": "always",
+  "semi": false,
+  "tabWidth": 2,
+  "singleQuote": true
+}
+Added changes to conf files .eslintrc.json and .stylelintrc.json
+
+9) Installed PropTypes library
+docker-compose run --rm frontend-node-cli yarn add prop-types
+
+10) Installed Cookie library
+docker-compose run --rm frontend-node-cli yarn add cookie
+
+11) Uninstalled eslint (primary dependency in package.json file)
+docker-compose run --rm frontend-node-cli yarn remove eslint
+
+12) Installed eslint plugins eslint-plugin-jest-dom and eslint-plugin-testing-library
+docker-compose run --rm frontend-node-cli yarn add --dev eslint-plugin-jest-dom
+docker-compose run --rm frontend-node-cli yarn add --dev eslint-plugin-testing-library
+
+13) Installed React Route v5.3.3 (v6 has major changes)
+docker-compose run --rm frontend-node-cli yarn add react-router-dom@5.3.3
+
+14) Updated React Route up to v6
+docker-compose run --rm frontend-node-cli yarn add react-router-dom
+
+15) Switched project to CodeUI React bootstrap theme (https://coreui.io/product/free-react-admin-template/). Installed required for this React theme dependencies:
+dependencies:
+docker-compose run --rm frontend-node-cli yarn add @coreui/chartjs
+docker-compose run --rm frontend-node-cli yarn add @coreui/icons
+docker-compose run --rm frontend-node-cli yarn add @coreui/icons-react
+docker-compose run --rm frontend-node-cli yarn add @coreui/react
+docker-compose run --rm frontend-node-cli yarn add @coreui/utils
+docker-compose run --rm frontend-node-cli yarn add classnames
+docker-compose run --rm frontend-node-cli yarn add react-redux
+docker-compose run --rm frontend-node-cli yarn add redux
+docker-compose run --rm frontend-node-cli yarn add simplebar-react
+
+devDependencies:
+docker-compose run --rm frontend-node-cli yarn add --dev sass
+
+16) Installed package for generation UUID
+docker-compose run --rm frontend-node-cli yarn add uuid
+

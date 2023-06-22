@@ -1,0 +1,72 @@
+framework:
+    messenger:
+        # reset services after consuming messages
+        reset_on_message: true
+
+        default_bus: command.bus
+        buses:
+            command.bus:
+#                middleware:
+#                    - doctrine_transaction
+#            query.bus:
+#            event.bus:
+#                default_middleware: allow_no_handlers
+
+        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
+        # failure_transport: failed
+        transports:
+            # https://symfony.com/doc/current/messenger.html#transport-configuration
+            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+
+            async_all:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    queues:
+                        messages: ~
+                        name: ~
+                        test: ~
+
+            async_main:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    queues:
+                        main: ~
+
+            async_test:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    queues:
+                        test: ~
+
+            async_test_direct:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    queues:
+                        test_direct: ~
+                    exchange:
+                        name: test_exchange
+                        type: direct
+
+            async_consistent_hash:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    queues:
+                        consistent_hash1:
+                            binding_keys: [ 1 ]
+                        consistent_hash2:
+                            binding_keys: [ 1 ]
+                        consistent_hash3:
+                            binding_keys: [ 1 ]
+                        consistent_hash4:
+                            binding_keys: [ 1 ]
+                    exchange:
+                        name: consistent_hash
+                        type: x-consistent-hash
+
+            # failed: 'doctrine://default?queue_name=failed'
+            sync: 'sync://'
+
+        routing:
+            # Route your messages to the transports
+            #App\Model\Domain\Command\Domain\Register\Command: async
+            App\Messenger\Test\Message: async_consistent_hash

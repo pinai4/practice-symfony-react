@@ -1,0 +1,153 @@
+1) Installed Symfony framework in 'api/symfony_temp' directory
+docker-compose run --rm api-php-cli composer create-project symfony/skeleton symfony_temp
+
+2) Moved all symfony files to 'api' directory and removed 'api/symfony_temp' directory
+
+3) Checked that docker container platform settings satisfy to symfony packages requirements
+docker-compose run --rm api-php-cli composer check-platform-reqs
+
+4) Installed Symfony Web Profiler (symfony/profiler-pack)
+docker-compose run --rm api-php-cli composer require profiler --dev
+
+5) Installed Logger (symfony/monolog-bundle)
+docker-compose run --rm api-php-cli composer require logger -W
+
+6) Installed useful Debug Tools (symfony/debug-pack)
+docker-compose run --rm api-php-cli composer require debug --dev
+
+7) Installed package for Annotations (sensio/framework-extra-bundle)
+docker-compose run --rm api-php-cli composer require annotations
+
+8) Installed package for Doctrine (symfony/orm-pack)
+docker-compose run --rm api-php-cli composer require orm
+
+9) Created database
+docker-compose run --rm api-php-cli php bin/console doctrine:database:create
+
+10) Created first migration php class
+docker-compose run --rm api-php-cli php bin/console doctrine:migrations:diff
+
+11) Applied changes to database from migration php class
+docker-compose run --rm api-php-cli php bin/console doctrine:migrations:migrate
+
+12) Installed Symfony UID Component
+docker-compose run --rm api-php-cli composer require symfony/uid
+
+13) Installed Webmozart Assert library
+docker-compose run --rm api-php-cli composer require webmozart/assert
+
+14) Installed Security Bundle (symfony/security-bundle)
+docker-compose run --rm api-php-cli composer require security
+
+15) Installed OAuth2 Server Bundle (league/oauth2-server-bundle)
+ a) docker-compose run --rm api-php-cli composer require league/oauth2-server-bundle --no-scripts
+ b) Generate keys and copies them to 'docker/development/secrets' folder
+    - docker-compose run --rm api-php-cli mkdir -p var/oauth
+    - docker-compose run --rm api-php-cli openssl genrsa -out var/oauth/jwt_private.key 2048
+    - docker-compose run --rm api-php-cli openssl rsa -in var/oauth/jwt_private.key -pubout -out var/oauth/jwt_public.key
+    - docker-compose run --rm api-php-cli chmod 644 var/oauth/jwt_private.key var/oauth/jwt_public.key
+    - copy keys to 'docker/development/secrets' folder
+ c) Complete installation by passing steps from "Installation" section in bundle manual https://github.com/thephpleague/oauth2-server-bundle/blob/master/docs/index.md
+ d) Complete configuration by passing steps from "Basic setup" section in bundle manual https://github.com/thephpleague/oauth2-server-bundle/blob/master/docs/basic-setup.md
+ e) docker-compose run --rm api-php-cli composer run-script auto-scripts
+
+16) Installed the Doctrine Fixtures bundle (doctrine/doctrine-fixtures-bundle)
+docker-compose run --rm api-php-cli composer require orm-fixtures --dev
+#Command for fixtures installation:
+#docker-compose run --rm api-php-cli php bin/console doctrine:fixtures:load
+
+17) Installed PasswordHasher Component. It was installed before as dependency of some package which was installed before.
+But it should be installed explicit because project domain logic dependents from this component and this package should be present in composer.json file
+docker-compose run --rm api-php-cli composer require symfony/password-hasher
+
+18) Installed pack for the Symfony serializer (symfony/serializer-pack)
+docker-compose run --rm api-php-cli composer require symfony/serializer-pack
+#System is not capable to show system exception in json format in response automatically without this package
+
+19) Installed pack for the Phpunit (symfony/test-pack)
+docker-compose run --rm api-php-cli composer require phpunit --dev
+
+20) Installed additional external package for phpunit test
+docker-compose run --rm api-php-cli composer require dms/phpunit-arraysubset-asserts --dev
+
+21) Configured separate DB for tests:
+docker-compose run --rm api-php-cli php bin/console --env=test doctrine:database:create
+docker-compose run --rm api-php-cli php bin/console --env=test doctrine:migrations:migrate
+docker-compose run --rm api-php-cli php bin/console --env=test doctrine:fixtures:load
+
+#Run all tests command:
+#docker-compose run --rm api-php-cli php bin/phpunit
+#Run specific tests command:
+docker-compose run --rm api-php-cli php bin/phpunit --filter=ProfileTest
+
+22) Installed Bundle (dama/doctrine-test-bundle) which prevents real DB data changes during tests execution
+ a) Installed package:
+ docker-compose run --rm api-php-cli composer require dama/doctrine-test-bundle --dev
+ b)Enabled it as a PHPUnit extension:
+ <!-- phpunit.xml.dist -->
+ <phpunit>
+     <!-- ... -->
+
+     <extensions>
+         <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
+     </extensions>
+ </phpunit>
+
+23) Installed NelmioApiDocBundle
+#Without symfony/asset component NelmioApiDocBundle installation generated error
+docker-compose run --rm api-php-cli composer require symfony/asset
+docker-compose run --rm api-php-cli composer require nelmio/api-doc-bundle --with-all-dependencies
+
+24) Installed Symfony Validator component (symfony/validator)
+docker-compose run --rm api-php-cli composer require validator
+
+25) Installed Faker library for generate data for fixtures
+docker-compose run --rm api-php-cli composer require fakerphp/faker --dev
+
+26) Installed KnpPaginatorBundle
+docker-compose run --rm api-php-cli composer require knplabs/knp-paginator-bundle
+
+27) Installed Messenger
+docker-compose run --rm api-php-cli composer require symfony/messenger
+
+28) Upgrade Symfony from 5.3 up to 5.4 version
+
+docker-compose run --rm api-php-cli composer update "symfony/*"
+
+docker-compose run --rm api-php-cli composer require league/oauth2-server-bundle:0.3.0
+
+docker-compose run --rm api-php-cli composer outdated --minor-only
+
+docker-compose run --rm api-php-cli composer update
+
+docker-compose run --rm api-php-cli composer require composer/package-versions-deprecated:1.11.99.5
+
+docker-compose run --rm api-php-cli composer require dama/doctrine-test-bundle:^7.1 --dev
+
+#Check full recipes list
+docker-compose run --rm api-php-cli composer recipes
+
+#Check specific system recipe details
+docker-compose run --rm api-php-cli composer recipes doctrine/doctrine-bundle
+
+#Re-install recipe (overwrite project files with default data from recipe)
+docker-compose run --rm api-php-cli composer recipes:install doctrine/doctrine-bundle --force -v
+docker-compose run --rm api-php-cli composer recipes:install symfony/debug-bundle --force -v
+docker-compose run --rm api-php-cli composer recipes:install symfony/framework-bundle --force -v
+docker-compose run --rm api-php-cli composer recipes:install symfony/messenger --force -v
+docker-compose run --rm api-php-cli composer recipes:install symfony/monolog-bundle --force -v
+docker-compose run --rm api-php-cli composer recipes:install symfony/routing --force -v
+docker-compose run --rm api-php-cli composer recipes:install symfony/security-bundle --force -v
+docker-compose run --rm api-php-cli composer recipes:install symfony/twig-bundle --force -v
+docker-compose run --rm api-php-cli composer recipes:install symfony/validator --force -v
+docker-compose run --rm api-php-cli composer recipes:install symfony/web-profiler-bundle --force -v
+
+29) Generated and then used tests/allowedDeprecations.json filed for ignore specific deprecations in tests
+
+30) Installed Symfony Mailer component (symfony/mailer)
+docker-compose run --rm api-php-cli composer require symfony/mailer
+
+
+
+
+

@@ -1,0 +1,32 @@
+[
+    {
+        "location": "App\\Tests\\Functional\\Api\\Auth\\RegisterTest::testSuccess",
+        "message": "The \"DAMA\\DoctrineTestBundle\\Doctrine\\DBAL\\VersionAwarePlatformStaticDriver\" class implements \"Doctrine\\DBAL\\VersionAwarePlatformDriver\" that is deprecated All drivers will have to be aware of the server version in the next major release.",
+        "count": 1
+    },
+    {
+        "location": "App\\Tests\\Functional\\Api\\Contact\\CreateTest::testSuccess",
+        "message": "Method \"Psr\\Http\\Message\\ServerRequestInterface::withUploadedFiles()\" might add \"static\" as a native return type declaration in the future. Do the same in implementation \"Nyholm\\Psr7\\ServerRequest\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "App\\Tests\\Functional\\Api\\Contact\\CreateTest::testSuccess",
+        "message": "Method \"Psr\\Http\\Message\\ServerRequestInterface::withCookieParams()\" might add \"static\" as a native return type declaration in the future. Do the same in implementation \"Nyholm\\Psr7\\ServerRequest\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "App\\Tests\\Functional\\Api\\Contact\\CreateTest::testSuccess",
+        "message": "Method \"Psr\\Http\\Message\\ServerRequestInterface::withQueryParams()\" might add \"static\" as a native return type declaration in the future. Do the same in implementation \"Nyholm\\Psr7\\ServerRequest\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "App\\Tests\\Functional\\Api\\Contact\\CreateTest::testSuccess",
+        "message": "Method \"Psr\\Http\\Message\\ServerRequestInterface::getParsedBody()\" might add \"array|object|null\" as a native return type declaration in the future. Do the same in implementation \"Nyholm\\Psr7\\ServerRequest\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "App\\Tests\\Functional\\Api\\Contact\\CreateTest::testSuccess",
+        "message": "Method \"Psr\\Http\\Message\\ServerRequestInterface::withParsedBody()\" might add \"static\" as a native return type declaration in the future. Do the same in implementation \"Nyholm\\Psr7\\ServerRequest\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    }
+]

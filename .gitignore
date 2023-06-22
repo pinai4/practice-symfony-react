@@ -1,0 +1,6 @@
+##PhpStorm project files
+/.idea/
+/api/.idea/
+/frontend/.idea/
+
+/api/useful-console-commands.txt
