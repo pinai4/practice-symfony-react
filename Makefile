@@ -27,7 +27,7 @@ docker-build:
 api-clear:
 	docker run --rm -v ${PWD}/api:/app -w /app alpine sh -c 'rm -rf var/cache/* var/log/* var/test/*'
 
-api-init: api-permissions api-composer-install api-wait-db api-migrations api-fixtures
+api-init: api-permissions api-composer-install api-wait-db api-migrations api-fixtures api-test-init
 
 api-permissions:
 	docker run --rm -v ${PWD}/api:/app -w /app alpine chmod 777 var/cache var/log #var/test
@@ -39,10 +39,15 @@ api-wait-db:
 	docker-compose run --rm api-php-cli wait-for-it api-postgres:5432 -t 30
 
 api-migrations:
-	docker-compose run --rm api-php-cli composer app doctrine:migrations:migrate --no-interaction
+	docker-compose run --rm api-php-cli composer app doctrine:migrations:migrate -- --no-interaction
 
 api-fixtures:
-	docker-compose run --rm api-php-cli composer app doctrine:fixtures:load --no-interaction
+	docker-compose run --rm api-php-cli composer app doctrine:fixtures:load -- --no-interaction
+
+api-test-init:
+	docker-compose run --rm api-php-cli composer app doctrine:database:create -- --env=test --if-not-exists --no-interaction
+	docker-compose run --rm api-php-cli composer app doctrine:migrations:migrate -- --env=test --no-interaction
+	docker-compose run --rm api-php-cli composer app doctrine:fixtures:load -- --env=test --no-interaction
 
 api-test:
 	docker-compose run --rm api-php-cli composer test
