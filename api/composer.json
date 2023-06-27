@@ -4,7 +4,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=8.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "composer/package-versions-deprecated": "1.11.99.5",
@@ -43,6 +43,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "fakerphp/faker": "^1.16",
         "phpunit/phpunit": "^9.5",
+        "psalm/plugin-symfony": "^5.0",
         "symfony/browser-kit": "5.4.*",
         "symfony/css-selector": "5.4.*",
         "symfony/debug-bundle": "5.4.*",
@@ -88,7 +89,8 @@
             "@auto-scripts"
         ],
         "app": "php bin/console --ansi",
-        "test": "php bin/phpunit --colors=always"
+        "test": "php bin/phpunit --colors=always",
+        "psalm": "psalm"
     },
     "conflict": {
         "symfony/symfony": "*"

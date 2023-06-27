@@ -58,6 +58,12 @@ api-test-unit:
 api-test-functional:
 	docker-compose run --rm api-php-cli composer test -- --testsuite=functional
 
+api-analyze:
+	docker-compose run --rm api-php-cli composer psalm -- --no-diff
+
+api-analyze-fix-dry:
+	docker-compose run --rm api-php-cli composer psalm -- --alter --issues=all --dry-run
+
 frontend-clear:
 	docker run --rm -v ${PWD}/frontend:/app -w /app alpine sh -c 'rm -rf .ready build'
 
