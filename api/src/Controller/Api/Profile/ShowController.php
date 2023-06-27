@@ -32,9 +32,7 @@ class ShowController extends AbstractController
      */
     public function show(Security $security): Response
     {
-        /**
-         * @var $loggedUser UserIdentity
-         */
+        /** @var UserIdentity $loggedUser */
         $loggedUser = $security->getUser();
         return $this->json(['name' => $loggedUser->getName()]);
     }

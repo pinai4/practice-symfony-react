@@ -34,9 +34,7 @@ class ShowController extends AbstractController
 
     public function showById(string $id, DomainFetcher $fetcher): Response
     {
-        /**
-         * @var $loggedUser UserIdentity
-         */
+        /** @var UserIdentity $loggedUser */
         $loggedUser = $this->getUser();
 
         $domainView = $fetcher->findByIdAndOwner($id, $loggedUser->getId());
@@ -63,9 +61,7 @@ class ShowController extends AbstractController
      */
     public function showByName(string $name, DomainFetcher $fetcher): Response
     {
-        /**
-         * @var $loggedUser UserIdentity
-         */
+        /** @var UserIdentity $loggedUser */
         $loggedUser = $this->getUser();
 
         $domainView = $fetcher->findByNameAndOwner($name, $loggedUser->getId());

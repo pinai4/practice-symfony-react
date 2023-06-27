@@ -33,9 +33,7 @@ class ShowController extends AbstractController
 
     public function show(string $id, ContactFetcher $fetcher): Response
     {
-        /**
-         * @var $loggedUser UserIdentity
-         */
+        /** @var UserIdentity $loggedUser */
         $loggedUser = $this->getUser();
 
         $contactView = $fetcher->findByIdAndOwner($id, $loggedUser->getId());

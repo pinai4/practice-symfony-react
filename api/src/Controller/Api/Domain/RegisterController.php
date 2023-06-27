@@ -71,9 +71,7 @@ class RegisterController extends AbstractController
     {
         $command = $this->serializer->deserialize($request->getContent(), Command::class, 'json');
 
-        /**
-         * @var $user UserIdentity
-         */
+        /** @var UserIdentity $user */
         $user = $this->getUser();
         $command->ownerId = $user->getId();
 

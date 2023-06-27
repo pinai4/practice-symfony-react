@@ -43,7 +43,7 @@ class DomainRepository
         return $this->repo->createQueryBuilder('t')
                 ->select('COUNT(t.id)')
                 ->where('t.id = :id')
-                ->setParameter('id', $id)
+                ->setParameter('id', $id, 'uuid')
                 ->getQuery()->getSingleScalarResult() > 0;
     }
 

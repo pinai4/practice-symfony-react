@@ -157,9 +157,7 @@ class IndexController extends AbstractController
             'array'
         );
 
-        /**
-         * @var $user UserIdentity
-         */
+        /** @var UserIdentity $user */
         $user = $this->getUser();
         $pagination = $fetcher->all(
             $user->getId(),
