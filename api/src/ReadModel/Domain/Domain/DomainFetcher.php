@@ -27,13 +27,13 @@ class DomainFetcher
     public function findByIdAndOwner(string $id, string $ownerId): ?DomainView
     {
         $stmt = $this->connection->createQueryBuilder()
-            ->select(
+            ->select([
                 'id',
                 'owner_id',
                 'name',
                 'cr_date',
                 'exp_date'
-            )
+            ])
             ->from('domain_domains')
             ->where('id = :id')
             ->andWhere('owner_id = :ownerId')
@@ -56,13 +56,13 @@ class DomainFetcher
     public function findByNameAndOwner(string $name, string $ownerId): ?DomainView
     {
         $stmt = $this->connection->createQueryBuilder()
-            ->select(
+            ->select([
                 'id',
                 'owner_id',
                 'name',
                 'cr_date',
                 'exp_date'
-            )
+            ])
             ->from('domain_domains')
             ->where('name = :name')
             ->andWhere('owner_id = :ownerId')
@@ -91,12 +91,12 @@ class DomainFetcher
         ?string $direction
     ): PaginationInterface {
         $qb = $this->connection->createQueryBuilder()
-            ->select(
+            ->select([
                 'd.id',
                 'd.name',
                 'd.cr_date',
                 'd.exp_date'
-            )
+            ])
             ->from('domain_domains', 'd')
             ->where('owner_id = :ownerId')
             ->setParameter('ownerId', $ownerId);
@@ -156,11 +156,11 @@ class DomainFetcher
     private function batchLoadContacts(array $ids): array
     {
         $stmt = $this->connection->createQueryBuilder()
-            ->select(
+            ->select([
                 'dc.type',
                 'dc.domain_id',
                 'dc.contact_id',
-            )
+            ])
             ->from('domain_domain_linked_contacts', 'dc')
             ->where('dc.domain_id IN (:ids)')
             ->setParameter('ids', $ids, Connection::PARAM_STR_ARRAY)

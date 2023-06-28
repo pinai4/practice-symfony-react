@@ -27,7 +27,7 @@ class ContactFetcher
     public function findByIdAndOwner(string $id, string $ownerId): ?ContactView
     {
         $stmt = $this->connection->createQueryBuilder()
-            ->select(
+            ->select([
                 'c.id',
                 'c.owner_id',
                 'c.cr_date',
@@ -40,7 +40,7 @@ class ContactFetcher
                 'c.state',
                 'c.zip',
                 'c.country'
-            )
+            ])
             ->from('domain_contacts', 'c')
             ->where('c.id = :id')
             ->andWhere('c.owner_id = :ownerId')
@@ -79,7 +79,7 @@ class ContactFetcher
         ?string $direction
     ): PaginationInterface {
         $qb = $this->connection->createQueryBuilder()
-            ->select(
+            ->select([
                 'c.id',
                 'c.cr_date',
                 'TRIM(CONCAT(c.name_first, \' \', c.name_last)) AS name',
@@ -91,7 +91,7 @@ class ContactFetcher
                 'c.state',
                 'c.zip',
                 'c.country'
-            )
+            ])
             ->from('domain_contacts', 'c')
             ->where('owner_id = :ownerId')
             ->setParameter('ownerId', $ownerId);

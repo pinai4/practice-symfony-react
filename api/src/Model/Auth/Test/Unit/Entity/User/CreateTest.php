@@ -13,7 +13,7 @@ use Symfony\Component\Uid\Uuid;
 
 class CreateTest extends TestCase
 {
-    public function testSuccess()
+    public function testSuccess(): void
     {
         $user = User::register(
             $id = Uuid::v4(),

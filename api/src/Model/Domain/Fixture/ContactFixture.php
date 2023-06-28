@@ -25,9 +25,7 @@ class ContactFixture extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager): void
     {
-        /**
-         * @var $user User
-         */
+        /** @var User $user */
         $user = $this->getReference(UserFixture::USER_REFERENCE);
 
         $contact = new Contact(
@@ -37,7 +35,7 @@ class ContactFixture extends Fixture implements DependentFixtureInterface
             new Name('Vasya', 'Petrov'),
             'My Company',
             new Email('some-email@example.com'),
-            new Phone('1', '202020202'),
+            new Phone(1, 202020202),
             'Street 2',
             'Kyiv',
             'Kyivska oblast',

@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace App\Messenger\Test;
 
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-class MessageHandler implements MessageHandlerInterface, LoggerAwareInterface
+class MessageHandler implements MessageHandlerInterface
 {
-    use LoggerAwareTrait;
+    public function __construct(private LoggerInterface $logger)
+    {
+    }
 
-    public function __invoke(Message $message)
+    public function __invoke(Message $message): void
     {
         $name = $message->getName();
         $currentTime = (new \DateTimeImmutable())->getTimestamp();

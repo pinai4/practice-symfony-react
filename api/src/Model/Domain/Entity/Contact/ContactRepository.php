@@ -14,6 +14,10 @@ use Symfony\Component\Uid\UuidV4;
 class ContactRepository
 {
     private EntityManagerInterface $em;
+
+    /**
+     * @var EntityRepository<Contact>
+     */
     private EntityRepository $repo;
 
     public function __construct(EntityManagerInterface $em)

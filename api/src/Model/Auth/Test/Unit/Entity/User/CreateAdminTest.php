@@ -13,7 +13,7 @@ use Symfony\Component\Uid\Uuid;
 
 class CreateAdminTest extends TestCase
 {
-    public function testSuccess()
+    public function testSuccess(): void
     {
         $user = User::registerAdmin(
             $id = Uuid::v4(),

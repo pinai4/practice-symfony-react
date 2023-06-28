@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Security\OAuth\Server\EventSubscriber;
 
 use App\Model\Auth\Service\PasswordHasher;
+use App\Security\UserIdentity;
 use League\Bundle\OAuth2ServerBundle\Event\UserResolveEvent;
 use League\Bundle\OAuth2ServerBundle\OAuth2Events;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -30,6 +31,7 @@ final class UserResolveSubscriber implements EventSubscriberInterface
 
     public function onUserResolve(UserResolveEvent $event): void
     {
+        /** @var UserIdentity $user */
         $user = $this->userProvider->loadUserByIdentifier($event->getUsername());
 
         if (!$this->passwordHasher->verify($user->getPassword(), $event->getPassword())) {

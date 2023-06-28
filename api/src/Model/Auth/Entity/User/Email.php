@@ -8,7 +8,7 @@ use Webmozart\Assert\Assert;
 
 class Email
 {
-    private $value;
+    private string $value;
 
     public function __construct(string $value)
     {

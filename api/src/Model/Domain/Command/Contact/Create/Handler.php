@@ -24,7 +24,7 @@ class Handler
         $this->flusher = $flusher;
     }
 
-    public function handle(Command $command)
+    public function handle(Command $command): void
     {
         if ($this->repo->hasById(new UuidV4($command->id))) {
             throw new DomainException('Contact already exists');
