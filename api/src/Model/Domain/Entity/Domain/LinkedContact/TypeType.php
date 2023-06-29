@@ -16,9 +16,9 @@ class TypeType extends StringType
         return $value instanceof Type ? $value->getName() : $value;
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform): mixed
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?Type
     {
-        return !empty($value) ? new Type($value) : null;
+        return !empty($value) ? new Type((string)$value) : null;
     }
 
     public function getName(): string

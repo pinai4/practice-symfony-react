@@ -35,7 +35,8 @@ class DomainExceptionFormatter implements EventSubscriberInterface
             return;
         }
 
-        if (strpos($request->attributes->get('_route'), 'api.') !== 0) {
+        $route = (string)$request->attributes->get('_route');
+        if (!str_starts_with($route, 'api.')) {
             return;
         }
 

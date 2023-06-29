@@ -36,6 +36,7 @@ class UserFetcher
             ->setParameter('email', $email)
             ->executeQuery();
 
+        /** @var array<string,string>|false $row */
         $row = $stmt->fetchAssociative();
 
         if ($row === false) {

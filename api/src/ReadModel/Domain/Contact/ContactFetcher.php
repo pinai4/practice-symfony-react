@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\ReadModel\Domain\Contact;
 
+use ContainerQMiv9hx\get_Console_Command_CachePoolDelete_LazyService;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -48,6 +49,7 @@ class ContactFetcher
             ->setParameter('ownerId', $ownerId)
             ->executeQuery();
 
+        /** @var false|array{organization: ?string}&array<string, string> $row */
         $row = $stmt->fetchAssociative();
 
         if ($row === false) {

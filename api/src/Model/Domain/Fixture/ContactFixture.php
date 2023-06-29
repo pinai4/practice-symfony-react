@@ -60,7 +60,7 @@ class ContactFixture extends Fixture implements DependentFixtureInterface
                 new Phone($faker->numberBetween(1, 999), $faker->numberBetween(9999999, 99999999)),
                 $faker->streetAddress(),
                 $faker->city(),
-                $faker->state(),
+                (string)$faker->format('state'),
                 $faker->postcode(),
                 $faker->countryCode()
             );

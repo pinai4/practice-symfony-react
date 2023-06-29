@@ -41,6 +41,7 @@ class DomainFetcher
             ->setParameter('ownerId', $ownerId)
             ->executeQuery();
 
+        /** @var false|array<string, string> $row */
         $row = $stmt->fetchAssociative();
 
         if ($row === false) {
@@ -70,6 +71,7 @@ class DomainFetcher
             ->setParameter('ownerId', $ownerId)
             ->executeQuery();
 
+        /** @var false|array<string, string> $row */
         $row = $stmt->fetchAssociative();
 
         if ($row === false) {

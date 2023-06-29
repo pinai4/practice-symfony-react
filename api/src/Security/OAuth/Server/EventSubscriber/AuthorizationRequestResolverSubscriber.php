@@ -39,7 +39,7 @@ class AuthorizationRequestResolverSubscriber implements EventSubscriberInterface
 
         if ($request->getSession()->has(self::SESSION_AUTHORIZATION_RESULT)) {
             $event->resolveAuthorization(
-                $request->getSession()->get(self::SESSION_AUTHORIZATION_RESULT)
+                (bool)$request->getSession()->get(self::SESSION_AUTHORIZATION_RESULT)
             );
             $request->getSession()->remove(self::SESSION_AUTHORIZATION_RESULT);
         } else {
