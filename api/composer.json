@@ -41,7 +41,7 @@
         "dama/doctrine-test-bundle": "^7.1",
         "dms/phpunit-arraysubset-asserts": "^0.3.1",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
-        "fakerphp/faker": "^1.16",
+        "fakerphp/faker": "^1.23",
         "phpunit/phpunit": "^9.5",
         "psalm/plugin-symfony": "^5.0",
         "symfony/browser-kit": "5.4.*",
