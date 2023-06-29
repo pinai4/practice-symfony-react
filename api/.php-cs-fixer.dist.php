@@ -8,7 +8,9 @@ $finder = (new PhpCsFixer\Finder())
 return (new PhpCsFixer\Config())
     ->setCacheFile(__DIR__ . '/var/cache/.php-cs-fixer.cache')
     ->setRules([
-        '@Symfony' => true
+        '@Symfony' => true,
+        'yoda_style' => false,
+        'phpdoc_types_order' => false,
     ])
     ->setFinder($finder)
 ;
