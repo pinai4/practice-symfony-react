@@ -2,17 +2,15 @@
 
 namespace App\Model\Domain\Fixture;
 
+use App\Model\Auth\Entity\User\User;
+use App\Model\Auth\Fixture\UserFixture;
 use App\Model\Domain\Entity\Contact\Contact;
 use App\Model\Domain\Entity\Contact\Email;
 use App\Model\Domain\Entity\Contact\Name;
 use App\Model\Domain\Entity\Contact\Phone;
-use App\Model\Auth\Entity\User\User;
-use App\Model\Auth\Fixture\UserFixture;
-use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Exception;
 use Faker\Factory;
 use Symfony\Component\Uid\UuidV4;
 
@@ -21,7 +19,7 @@ class ContactFixture extends Fixture implements DependentFixtureInterface
     public const CONTACT_REFERENCE = 'contact-reference';
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function load(ObjectManager $manager): void
     {
@@ -31,7 +29,7 @@ class ContactFixture extends Fixture implements DependentFixtureInterface
         $contact = new Contact(
             new UuidV4(),
             $user->getId(),
-            new DateTimeImmutable(),
+            new \DateTimeImmutable(),
             new Name('Vasya', 'Petrov'),
             'My Company',
             new Email('some-email@example.com'),
@@ -49,18 +47,18 @@ class ContactFixture extends Fixture implements DependentFixtureInterface
 
         $faker = Factory::create();
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 20; ++$i) {
             $contact = new Contact(
                 new UuidV4(),
                 $user->getId(),
-                new DateTimeImmutable($faker->dateTimeThisDecade()->format('Y-m-d H:i:s')),
+                new \DateTimeImmutable($faker->dateTimeThisDecade()->format('Y-m-d H:i:s')),
                 new Name($faker->firstName(), $faker->lastName()),
-                ($faker->boolean() ? $faker->company() : null),
+                $faker->boolean() ? $faker->company() : null,
                 new Email($faker->email()),
                 new Phone($faker->numberBetween(1, 999), $faker->numberBetween(9999999, 99999999)),
                 $faker->streetAddress(),
                 $faker->city(),
-                (string)$faker->format('state'),
+                (string) $faker->format('state'),
                 $faker->postcode(),
                 $faker->countryCode()
             );
@@ -73,7 +71,7 @@ class ContactFixture extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            UserFixture::class
+            UserFixture::class,
         ];
     }
 }

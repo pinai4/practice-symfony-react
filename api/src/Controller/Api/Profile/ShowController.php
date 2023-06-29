@@ -14,10 +14,9 @@ use Symfony\Component\Security\Core\Security;
 class ShowController extends AbstractController
 {
     /**
-     * User Profile
+     * User Profile.
      *
      * @Route(path="/profile", name="profile", methods={"GET"})
-     *
      * @OA\Response(
      *     response="200",
      *     description="Success response",
@@ -26,14 +25,13 @@ class ShowController extends AbstractController
      *         @OA\Property(property="name", type="string", description="User Name")
      *     )
      * )
-     *
      * @OA\Tag(name="Profile")
-     *
      */
     public function show(Security $security): Response
     {
         /** @var UserIdentity $loggedUser */
         $loggedUser = $security->getUser();
+
         return $this->json(['name' => $loggedUser->getName()]);
     }
 }

@@ -105,7 +105,7 @@ class CreateTest extends AuthWebTestCase
                                         'state' => 'This value should not be blank.',
                                         'zip' => 'This value should not be blank.',
                                         'country' => 'This value should not be blank.',
-                                    ]
+                                    ],
                                 ], $data);
     }
 

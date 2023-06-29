@@ -17,8 +17,6 @@ class UserFetcher
     }
 
     /**
-     * @param string $email
-     * @return AuthView|null
      * @throws Exception
      */
     public function findForAuthByEmail(string $email): ?AuthView
@@ -29,7 +27,7 @@ class UserFetcher
                 'name',
                 'email',
                 'password',
-                'role'
+                'role',
             ])
             ->from('user_users')
             ->where('email = :email')

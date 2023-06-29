@@ -18,7 +18,7 @@ class TypeType extends StringType
 
     public function convertToPHPValue($value, AbstractPlatform $platform): ?Type
     {
-        return !empty($value) ? new Type((string)$value) : null;
+        return !empty($value) ? new Type((string) $value) : null;
     }
 
     public function getName(): string
@@ -26,7 +26,7 @@ class TypeType extends StringType
         return self::NAME;
     }
 
-    public function requiresSQLCommentHint(AbstractPlatform $platform) : bool
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
         return true;
     }

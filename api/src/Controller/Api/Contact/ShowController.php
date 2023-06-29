@@ -19,18 +19,15 @@ class ShowController extends AbstractController
 {
     /**
      * @Route(path="contacts/{id}", name="contacts.show", methods={"GET"}, requirements={"id"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}))
-     *
      * @OA\Response(
      *     response="200",
      *     description="Success response",
      *     @OA\JsonContent(ref=@Model(type=ContactView::class, groups={"show"}))
      * )
-     *
      * @OA\Tag(name="Contacts")
      *
      * @throws Exception
      */
-
     public function show(string $id, ContactFetcher $fetcher): Response
     {
         /** @var UserIdentity $loggedUser */
@@ -38,7 +35,7 @@ class ShowController extends AbstractController
 
         $contactView = $fetcher->findByIdAndOwner($id, $loggedUser->getId());
 
-        if(is_null($contactView)) {
+        if (is_null($contactView)) {
             throw new NotFoundHttpException('Contact not found');
         }
 

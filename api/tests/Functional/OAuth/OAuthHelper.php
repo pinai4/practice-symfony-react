@@ -44,7 +44,7 @@ final class OAuthHelper
     ): ?string {
         $payload = json_encode([
                                    'client_id' => $authCode->getClient()->getIdentifier(),
-                                   'redirect_uri' => (string)$authCode->getClient()->getRedirectUris()[0],
+                                   'redirect_uri' => (string) $authCode->getClient()->getRedirectUris()[0],
                                    'auth_code_id' => $authCode->getIdentifier(),
                                    'scopes' => array_map('strval', $authCode->getScopes()),
                                    'user_id' => $authCode->getUserIdentifier(),
@@ -84,11 +84,11 @@ final class OAuthHelper
 
         foreach ($accessToken->getScopes() as $scope) {
             $scopeEntity = new ScopeEntity();
-            $scopeEntity->setIdentifier((string)$scope);
+            $scopeEntity->setIdentifier((string) $scope);
 
             $accessTokenEntity->addScope($scopeEntity);
         }
 
-        return (string)$accessTokenEntity;
+        return (string) $accessTokenEntity;
     }
 }

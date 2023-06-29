@@ -42,6 +42,6 @@ class Phone
 
     public function getFull(): string
     {
-        return '+' . $this->countryCode . '.' . $this->number;
+        return '+'.$this->countryCode.'.'.$this->number;
     }
 }

@@ -31,6 +31,7 @@ class ContactRepository
         if (!$contact = $this->repo->find($id)) {
             throw new EntityNotFoundException('Contact was not found.');
         }
+
         return $contact;
     }
 

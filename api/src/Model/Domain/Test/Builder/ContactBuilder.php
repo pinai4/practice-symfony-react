@@ -43,6 +43,7 @@ class ContactBuilder
     {
         $clone = clone $this;
         $clone->id = $id;
+
         return clone $clone;
     }
 
@@ -50,6 +51,7 @@ class ContactBuilder
     {
         $clone = clone $this;
         $clone->ownerId = $ownerId;
+
         return clone $clone;
     }
 
@@ -57,6 +59,7 @@ class ContactBuilder
     {
         $clone = clone $this;
         $clone->name = $name;
+
         return clone $clone;
     }
 
@@ -64,6 +67,7 @@ class ContactBuilder
     {
         $clone = clone $this;
         $clone->email = $email;
+
         return clone $clone;
     }
 
@@ -71,6 +75,7 @@ class ContactBuilder
     {
         $clone = clone $this;
         $clone->phone = $phone;
+
         return clone $clone;
     }
 
@@ -78,6 +83,7 @@ class ContactBuilder
     {
         $clone = clone $this;
         $clone->address = $address;
+
         return clone $clone;
     }
 
@@ -85,6 +91,7 @@ class ContactBuilder
     {
         $clone = clone $this;
         $clone->city = $city;
+
         return clone $clone;
     }
 
@@ -92,6 +99,7 @@ class ContactBuilder
     {
         $clone = clone $this;
         $clone->state = $state;
+
         return clone $clone;
     }
 
@@ -99,6 +107,7 @@ class ContactBuilder
     {
         $clone = clone $this;
         $clone->zip = $zip;
+
         return clone $clone;
     }
 
@@ -106,9 +115,9 @@ class ContactBuilder
     {
         $clone = clone $this;
         $clone->country = $country;
+
         return clone $clone;
     }
-
 
     public function build(): Contact
     {

@@ -42,6 +42,6 @@ class Name
 
     public function getFull(): string
     {
-        return $this->first . ' ' . $this->last;
+        return $this->first.' '.$this->last;
     }
 }

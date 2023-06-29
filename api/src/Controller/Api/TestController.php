@@ -25,7 +25,7 @@ class TestController extends AbstractController
      */
     public function sendMessages(): Response
     {
-        for ($i = 1; $i <= 200; $i++) {
+        for ($i = 1; $i <= 200; ++$i) {
             $hashKey = '1hash';
             if ($i >= 30 && $i < 70) {
                 $hashKey = '5hash';
@@ -39,7 +39,7 @@ class TestController extends AbstractController
                 $hashKey = '6hash';
             }
 
-            $this->messageBus->dispatch(new Message('MsgName' . $i), [
+            $this->messageBus->dispatch(new Message('MsgName'.$i), [
                 new AmqpStamp($hashKey, AMQP_NOPARAM, []),
             ]);
         }

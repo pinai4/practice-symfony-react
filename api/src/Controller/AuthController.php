@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Security\OAuth\Server\EventSubscriber\AuthorizationRequestResolverSubscriber;
-use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,17 +32,17 @@ class AuthController extends AbstractController
     public function logout(): void
     {
         // controller can be blank: it will never be called!
-        throw new Exception('Don\'t forget to activate logout in security.yaml');
+        throw new \Exception('Don\'t forget to activate logout in security.yaml');
     }
 
     #[Route('/consent', name: 'app_consent')]
     public function consent(Request $request): Response
     {
-        if(!$this->isValidOAuth2AuthorizationRequestParams($request)) {
+        if (!$this->isValidOAuth2AuthorizationRequestParams($request)) {
             throw new BadRequestException('Required params not found');
         }
 
-        if ($request->isMethod("POST") && ($request->request->has('allow') || $request->request->has('deny'))) {
+        if ($request->isMethod('POST') && ($request->request->has('allow') || $request->request->has('deny'))) {
             switch (true) {
                 case $request->request->has('allow'):
                     $request->getSession()->set(
@@ -67,9 +66,9 @@ class AuthController extends AbstractController
 
     public function isValidOAuth2AuthorizationRequestParams(Request $request): bool
     {
-        return ($request->query->get('response_type')
+        return $request->query->get('response_type')
             && $request->query->get('client_id')
             && $request->query->get('code_challenge')
-            && $request->query->get('code_challenge_method'));
+            && $request->query->get('code_challenge_method');
     }
 }

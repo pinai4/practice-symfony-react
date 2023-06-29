@@ -17,6 +17,7 @@ trait EventsTrait
     {
         $events = $this->recordedEvents;
         $this->recordedEvents = [];
+
         return $events;
     }
 }

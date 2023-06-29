@@ -20,7 +20,6 @@ class UserProvider implements UserProviderInterface
         $this->userFetcher = $userFetcher;
     }
 
-
     /**
      * @throws Exception
      */
@@ -45,7 +44,7 @@ class UserProvider implements UserProviderInterface
     public function loadUserByIdentifier(string $identifier): UserInterface
     {
         $user = $this->userFetcher->findForAuthByEmail($identifier);
-        if(is_null($user)) {
+        if (is_null($user)) {
             throw new UserNotFoundException();
         }
 
@@ -62,5 +61,4 @@ class UserProvider implements UserProviderInterface
             $user->role
         );
     }
-
 }

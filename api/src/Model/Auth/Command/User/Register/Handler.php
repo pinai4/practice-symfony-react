@@ -10,10 +10,8 @@ use App\Model\Auth\Entity\User\UserRepository;
 use App\Model\Auth\Service\PasswordHasher;
 use App\Model\Auth\Service\RegisterSenderInterface;
 use App\Model\Flusher;
-use DateTimeImmutable;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
-use DomainException;
 use Symfony\Component\Uid\UuidV4;
 
 class Handler
@@ -23,14 +21,12 @@ class Handler
     private PasswordHasher $passwordHasher;
     private RegisterSenderInterface $sender;
 
-
     public function __construct(
         UserRepository $repo,
         Flusher $flusher,
         PasswordHasher $passwordHasher,
         RegisterSenderInterface $sender
-    )
-    {
+    ) {
         $this->repo = $repo;
         $this->flusher = $flusher;
         $this->passwordHasher = $passwordHasher;
@@ -44,11 +40,11 @@ class Handler
     public function handle(Command $command): void
     {
         if ($this->repo->hasById(new UuidV4($command->id))) {
-            throw new DomainException('User already exists');
+            throw new \DomainException('User already exists');
         }
 
         if ($this->repo->hasByEmail(new Email($command->email))) {
-            throw new DomainException('User already exists');
+            throw new \DomainException('User already exists');
         }
 
         $user = User::register(
@@ -56,7 +52,7 @@ class Handler
             $command->name,
             $email = new Email($command->email),
             $this->passwordHasher->hash($command->password),
-            new DateTimeImmutable()
+            new \DateTimeImmutable()
         );
 
         $this->repo->add($user);

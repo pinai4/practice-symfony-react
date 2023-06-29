@@ -23,7 +23,7 @@ class ConsentTest extends AuthWebTestCase
     {
         $this->client->request(
             'GET',
-            self::URI . '?' . http_build_query([
+            self::URI.'?'.http_build_query([
                                                    'response_type' => 'code',
                                                    'client_id' => OAuthFixture::CLIENT_IDENTIFIER,
                                                    'code_challenge' => PKCE::challenge(PKCE::verifier()),
@@ -53,13 +53,13 @@ class ConsentTest extends AuthWebTestCase
 
         $this->client->request(
             'GET',
-            self::URI . '?' . $queryParams
+            self::URI.'?'.$queryParams
         );
 
         $this->client->submitForm('Allow');
 
         self::assertSame(302, $this->client->getResponse()->getStatusCode());
-        self::assertSame('/authorize' . '?' . $queryParams, $this->client->getResponse()->headers->get('Location'));
+        self::assertSame('/authorize?'.$queryParams, $this->client->getResponse()->headers->get('Location'));
 
         $this->client->followRedirect();
 
@@ -82,14 +82,14 @@ class ConsentTest extends AuthWebTestCase
 
         $this->client->request(
             'GET',
-            self::URI . '?' . $queryParams
+            self::URI.'?'.$queryParams
         );
 
         $this->client->submitForm('Allow');
 
         self::assertSame(302, $this->client->getResponse()->getStatusCode());
         self::assertSame(
-            '/authorize' . '?' . urldecode($queryParams),
+            '/authorize?'.urldecode($queryParams),
             $this->client->getResponse()->headers->get('Location')
         );
 
@@ -103,7 +103,7 @@ class ConsentTest extends AuthWebTestCase
 
         self::assertNotEmpty($url['query']);
 
-        /** @var array{code:string,state:string} $query */
+        /* @var array{code:string,state:string} $query */
         parse_str($url['query'], $query);
 
         self::assertArrayHasKey('code', $query);
@@ -125,13 +125,13 @@ class ConsentTest extends AuthWebTestCase
 
         $this->client->request(
             'GET',
-            self::URI . '?' . $queryParams
+            self::URI.'?'.$queryParams
         );
 
         $this->client->submitForm('Deny');
 
         self::assertSame(302, $this->client->getResponse()->getStatusCode());
-        self::assertSame('/authorize' . '?' . $queryParams, $this->client->getResponse()->headers->get('Location'));
+        self::assertSame('/authorize?'.$queryParams, $this->client->getResponse()->headers->get('Location'));
 
         $this->client->followRedirect();
 
@@ -154,14 +154,14 @@ class ConsentTest extends AuthWebTestCase
 
         $this->client->request(
             'GET',
-            self::URI . '?' . $queryParams
+            self::URI.'?'.$queryParams
         );
 
         $this->client->submitForm('Deny');
 
         self::assertSame(302, $this->client->getResponse()->getStatusCode());
         self::assertSame(
-            '/authorize' . '?' . urldecode($queryParams),
+            '/authorize?'.urldecode($queryParams),
             $this->client->getResponse()->headers->get('Location')
         );
 
@@ -175,7 +175,7 @@ class ConsentTest extends AuthWebTestCase
 
         self::assertNotEmpty($url['query']);
 
-        /** @var array{code:string,state:string} $query */
+        /* @var array{code:string,state:string} $query */
         parse_str($url['query'], $query);
 
         self::assertArrayHasKey('error', $query);

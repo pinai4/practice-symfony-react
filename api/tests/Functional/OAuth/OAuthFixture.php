@@ -6,7 +6,6 @@ namespace App\Tests\Functional\OAuth;
 
 use App\Model\Auth\Entity\User\User;
 use App\Tests\Functional\UserFixture;
-use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -37,8 +36,6 @@ class OAuthFixture extends Fixture implements DependentFixtureInterface
 
     public const AUTHORIZATION_CODE_USER_BOUND = '8be866c9619a34f5e97e734f1a9cd05e38e7ed3777d633c7414e663b8d9b9bbbb1ece086488ae0f8';
     public const AUTHORIZATION_CODE_EXPIRY = '2400-12-31 01:02:03';
-
-
 
     public function load(ObjectManager $manager): void
     {
@@ -78,13 +75,13 @@ class OAuthFixture extends Fixture implements DependentFixtureInterface
 
     public static function createAccessToken(string $userIdentifier, ?Client $client = null): AccessToken
     {
-        if(is_null($client)) {
+        if (is_null($client)) {
             $client = self::createClient();
         }
 
         return new AccessToken(
             self::ACCESS_TOKEN_USER_BOUND,
-            new DateTimeImmutable(self::ACCESS_TOKEN_EXPIRY),
+            new \DateTimeImmutable(self::ACCESS_TOKEN_EXPIRY),
             $client,
             $userIdentifier,
             [new Scope(self::SCOPE)]
@@ -93,13 +90,13 @@ class OAuthFixture extends Fixture implements DependentFixtureInterface
 
     public static function createAuthorizationCode(string $userIdentifier, ?Client $client = null): AuthorizationCode
     {
-        if(is_null($client)) {
+        if (is_null($client)) {
             $client = self::createClient();
         }
 
         return new AuthorizationCode(
             self::AUTHORIZATION_CODE_USER_BOUND,
-            new DateTimeImmutable(self::AUTHORIZATION_CODE_EXPIRY),
+            new \DateTimeImmutable(self::AUTHORIZATION_CODE_EXPIRY),
             $client,
             $userIdentifier,
             [new Scope(self::SCOPE)]
@@ -114,7 +111,7 @@ class OAuthFixture extends Fixture implements DependentFixtureInterface
 
         return new RefreshToken(
             self::REFRESH_TOKEN_USER_BOUND,
-            new DateTimeImmutable(self::REFRESH_TOKEN_EXPIRY),
+            new \DateTimeImmutable(self::REFRESH_TOKEN_EXPIRY),
             $accessToken
         );
     }
@@ -122,9 +119,7 @@ class OAuthFixture extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            UserFixture::class
+            UserFixture::class,
         ];
     }
-
-
 }

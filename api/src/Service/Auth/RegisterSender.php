@@ -12,7 +12,6 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class RegisterSender implements RegisterSenderInterface
 {
-
     private MailerInterface $mailer;
 
     public function __construct(MailerInterface $mailer)
@@ -29,7 +28,7 @@ class RegisterSender implements RegisterSenderInterface
             ->to($emailAddress->getValue())
             ->htmlTemplate('auth/emails/register.html.twig')
             ->context([
-                          'frontend_url' => 'http://localhost:8080'
+                          'frontend_url' => 'http://localhost:8080',
                       ]);
 
         $this->mailer->send($email);

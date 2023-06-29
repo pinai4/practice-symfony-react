@@ -7,7 +7,6 @@ namespace App\Model\Domain\Entity\Domain;
 use App\Model\Domain\Entity\Contact\Contact;
 use App\Model\Domain\Entity\Domain\LinkedContact\LinkedContact;
 use App\Model\Domain\Entity\Domain\LinkedContact\Type;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -38,15 +37,16 @@ class Domain
     /**
      * @ORM\Column(type="datetime_immutable")
      */
-    private DateTimeImmutable $cr_date;
+    private \DateTimeImmutable $cr_date;
 
     /**
      * @ORM\Column(type="datetime_immutable")
      */
-    private DateTimeImmutable $exp_date;
+    private \DateTimeImmutable $exp_date;
 
     /**
      * @var Collection<array-key,LinkedContact>
+     *
      * @ORM\OneToMany(targetEntity="App\Model\Domain\Entity\Domain\LinkedContact\LinkedContact", mappedBy="domain", cascade={"all"}, orphanRemoval=true)
      */
     private Collection $linkedContacts;
@@ -55,8 +55,8 @@ class Domain
         UuidV4 $id,
         UuidV4 $ownerId,
         string $name,
-        DateTimeImmutable $cr_date,
-        DateTimeImmutable $exp_date,
+        \DateTimeImmutable $cr_date,
+        \DateTimeImmutable $exp_date,
         Contact $ownerContact
     ) {
         $this->id = $id;
@@ -79,11 +79,9 @@ class Domain
             $id,
             $ownerId,
             $name,
-            new DateTimeImmutable(),
-            new DateTimeImmutable("+{$period} year"),
+            new \DateTimeImmutable(),
+            new \DateTimeImmutable("+{$period} year"),
             $ownerContact
         );
     }
-
-
 }

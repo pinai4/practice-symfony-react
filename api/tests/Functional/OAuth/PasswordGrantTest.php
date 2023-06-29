@@ -23,7 +23,7 @@ class PasswordGrantTest extends AuthWebTestCase
             'password' => UserFixture::PASSWORD_PLAIN,
             'client_id' => OAuthFixture::CLIENT_IDENTIFIER,
             'client_secret' => OAuthFixture::CLIENT_SECRET,
-            'scope' => OAuthFixture::SCOPE
+            'scope' => OAuthFixture::SCOPE,
         ]);
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());

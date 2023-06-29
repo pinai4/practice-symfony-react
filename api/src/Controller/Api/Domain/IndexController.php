@@ -19,7 +19,6 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class IndexController extends AbstractController
 {
-
     private const PER_PAGE = 10;
 
     private DenormalizerInterface $denormalizer;
@@ -31,7 +30,6 @@ class IndexController extends AbstractController
 
     /**
      * @Route(path="/domains", name="domains", methods={"GET"})
-     *
      * @OA\Parameter(
      *     name="filter[name]",
      *     in="query",
@@ -67,7 +65,6 @@ class IndexController extends AbstractController
      *     @OA\Schema(type="integer", example="10"),
      *     style="form"
      * )
-     *
      * @OA\Response(
      *     response=200,
      *     description="Success response",
@@ -86,7 +83,6 @@ class IndexController extends AbstractController
      *         @OA\Property(property="pagination", ref="#/components/schemas/Pagination"),
      *     )
      * ),
-     *
      * @OA\Tag(name="Domains")
      *
      * @throws ExceptionInterface
@@ -114,7 +110,7 @@ class IndexController extends AbstractController
         return $this->json(
             [
                 'items' => $pagination->getItems(),
-                'pagination' => PaginationSerializer::toArray($pagination)
+                'pagination' => PaginationSerializer::toArray($pagination),
             ],
             200
         );

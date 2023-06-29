@@ -29,9 +29,9 @@ class IndexTest extends AuthWebTestCase
             self::URI,
             [
                 'filter' => [
-                    'name' => ContactFixture::FIRST_NAME . ' ' . ContactFixture::LAST_NAME,
+                    'name' => ContactFixture::FIRST_NAME.' '.ContactFixture::LAST_NAME,
                     'email' => ContactFixture::EMAIL,
-                    'phone' => '+' . ContactFixture::PHONE_COUNTRY_CODE . '.' . ContactFixture::PHONE_NUMBER,
+                    'phone' => '+'.ContactFixture::PHONE_COUNTRY_CODE.'.'.ContactFixture::PHONE_NUMBER,
                     'address' => ContactFixture::ADDRESS,
                     'city' => ContactFixture::CITY,
                     'state' => ContactFixture::STATE,
@@ -68,16 +68,16 @@ class IndexTest extends AuthWebTestCase
                                    [
                                        'id' => ContactFixture::ID,
                                        'cr_date' => ContactFixture::CR_DATE,
-                                       'name' => ContactFixture::FIRST_NAME . ' ' . ContactFixture::LAST_NAME,
+                                       'name' => ContactFixture::FIRST_NAME.' '.ContactFixture::LAST_NAME,
                                        'organization' => null,
                                        'email' => ContactFixture::EMAIL,
-                                       'phone' => '+' . ContactFixture::PHONE_COUNTRY_CODE . '.' . ContactFixture::PHONE_NUMBER,
+                                       'phone' => '+'.ContactFixture::PHONE_COUNTRY_CODE.'.'.ContactFixture::PHONE_NUMBER,
                                        'address' => ContactFixture::ADDRESS,
                                        'city' => ContactFixture::CITY,
                                        'state' => ContactFixture::STATE,
                                        'zip' => ContactFixture::ZIP,
                                        'country' => ContactFixture::COUNTRY,
-                                   ]
+                                   ],
                                ],
                                'pagination' => [
                                    'total' => 1,
@@ -146,7 +146,7 @@ class IndexTest extends AuthWebTestCase
                 2,
                 2,
                 ['total' => 6, 'pages' => 3],
-                ['country' => 'UA', 'name' => '5 List-Tester Surname']
+                ['country' => 'UA', 'name' => '5 List-Tester Surname'],
             ],
             [
                 ['name' => 'List-Tester'],
@@ -155,7 +155,7 @@ class IndexTest extends AuthWebTestCase
                 3,
                 3,
                 ['total' => 10, 'pages' => 4],
-                ['name' => '3 List-Tester Surname']
+                ['name' => '3 List-Tester Surname'],
             ],
             [
                 ['phone' => '+4.1000004'],
@@ -164,7 +164,7 @@ class IndexTest extends AuthWebTestCase
                 1,
                 5,
                 ['total' => 1, 'pages' => 1],
-                ['organization' => '4 Company List']
+                ['organization' => '4 Company List'],
             ],
         ];
     }

@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\ReadModel\Domain\Contact;
 
-use ContainerQMiv9hx\get_Console_Command_CachePoolDelete_LazyService;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use UnexpectedValueException;
 
 class ContactFetcher
 {
@@ -40,7 +38,7 @@ class ContactFetcher
                 'c.city',
                 'c.state',
                 'c.zip',
-                'c.country'
+                'c.country',
             ])
             ->from('domain_contacts', 'c')
             ->where('c.id = :id')
@@ -92,7 +90,7 @@ class ContactFetcher
                 'c.city',
                 'c.state',
                 'c.zip',
-                'c.country'
+                'c.country',
             ])
             ->from('domain_contacts', 'c')
             ->where('owner_id = :ownerId')
@@ -100,49 +98,49 @@ class ContactFetcher
 
         if (!empty($filter->name)) {
             $qb->andWhere($qb->expr()->like('TRIM(CONCAT(c.name_first, \' \', c.name_last))', ':name'));
-            $qb->setParameter('name', '%' . $filter->name . '%');
+            $qb->setParameter('name', '%'.$filter->name.'%');
         }
 
         if (!empty($filter->organization)) {
             $qb->andWhere($qb->expr()->like('c.organization', ':organization'));
-            $qb->setParameter('organization', '%' . $filter->organization . '%');
+            $qb->setParameter('organization', '%'.$filter->organization.'%');
         }
 
         if (!empty($filter->email)) {
             $qb->andWhere($qb->expr()->like('c.email', ':email'));
-            $qb->setParameter('email', '%' . $filter->email . '%');
+            $qb->setParameter('email', '%'.$filter->email.'%');
         }
 
         if (!empty($filter->phone)) {
             $qb->andWhere(
                 $qb->expr()->like('TRIM(CONCAT(\'+\', c.phone_country_code, \'.\', c.phone_number))', ':phone')
             );
-            $qb->setParameter('phone', '%' . $filter->phone . '%');
+            $qb->setParameter('phone', '%'.$filter->phone.'%');
         }
 
         if (!empty($filter->address)) {
             $qb->andWhere($qb->expr()->like('c.address', ':address'));
-            $qb->setParameter('address', '%' . $filter->address . '%');
+            $qb->setParameter('address', '%'.$filter->address.'%');
         }
 
         if (!empty($filter->city)) {
             $qb->andWhere($qb->expr()->like('c.city', ':city'));
-            $qb->setParameter('city', '%' . $filter->city . '%');
+            $qb->setParameter('city', '%'.$filter->city.'%');
         }
 
         if (!empty($filter->state)) {
             $qb->andWhere($qb->expr()->like('c.state', ':state'));
-            $qb->setParameter('state', '%' . $filter->state . '%');
+            $qb->setParameter('state', '%'.$filter->state.'%');
         }
 
         if (!empty($filter->zip)) {
             $qb->andWhere($qb->expr()->like('c.zip', ':zip'));
-            $qb->setParameter('zip', '%' . $filter->zip . '%');
+            $qb->setParameter('zip', '%'.$filter->zip.'%');
         }
 
         if (!empty($filter->country)) {
             $qb->andWhere($qb->expr()->like('c.country', ':country'));
-            $qb->setParameter('country', '%' . $filter->country . '%');
+            $qb->setParameter('country', '%'.$filter->country.'%');
         }
 
         if (!empty($sort)) {
@@ -159,11 +157,11 @@ class ContactFetcher
                     'city',
                     'state',
                     'zip',
-                    'country'
+                    'country',
                 ],
                 true
             )) {
-                throw new UnexpectedValueException('Cannot sort by ' . $sort);
+                throw new \UnexpectedValueException('Cannot sort by '.$sort);
             }
             $qb->orderBy($sort, $direction === 'desc' ? 'desc' : 'asc');
         }

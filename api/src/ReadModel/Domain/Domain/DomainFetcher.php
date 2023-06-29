@@ -8,7 +8,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use UnexpectedValueException;
 
 class DomainFetcher
 {
@@ -32,7 +31,7 @@ class DomainFetcher
                 'owner_id',
                 'name',
                 'cr_date',
-                'exp_date'
+                'exp_date',
             ])
             ->from('domain_domains')
             ->where('id = :id')
@@ -62,7 +61,7 @@ class DomainFetcher
                 'owner_id',
                 'name',
                 'cr_date',
-                'exp_date'
+                'exp_date',
             ])
             ->from('domain_domains')
             ->where('name = :name')
@@ -97,7 +96,7 @@ class DomainFetcher
                 'd.id',
                 'd.name',
                 'd.cr_date',
-                'd.exp_date'
+                'd.exp_date',
             ])
             ->from('domain_domains', 'd')
             ->where('owner_id = :ownerId')
@@ -105,7 +104,7 @@ class DomainFetcher
 
         if (!empty($filter->name)) {
             $qb->andWhere($qb->expr()->like('d.name', ':name'));
-            $qb->setParameter('name', '%' . $filter->name . '%');
+            $qb->setParameter('name', '%'.$filter->name.'%');
         }
 
         if (!empty($sort)) {
@@ -119,14 +118,14 @@ class DomainFetcher
                 ],
                 true
             )) {
-                throw new UnexpectedValueException('Cannot sort by ' . $sort);
+                throw new \UnexpectedValueException('Cannot sort by '.$sort);
             }
             $qb->orderBy($sort, $direction === 'desc' ? 'desc' : 'asc');
         }
 
         $pagination = $this->paginator->paginate($qb, $page, $limit);
 
-        $domains = (array)$pagination->getItems();
+        $domains = (array) $pagination->getItems();
 
         $contacts = $this->batchLoadContacts(array_column($domains, 'id'));
 
@@ -143,6 +142,7 @@ class DomainFetcher
                         'id' => $domainContact['contact_id'],
                     ];
                 }, $domainContacts);
+
                 return array_merge($domain, [
                     'contacts' => $domainContacts,
                 ]);

@@ -83,7 +83,7 @@ class RegisterTest extends AuthWebTestCase
                                         'name' => 'This value is not a valid hostname.',
                                         'period' => 'This value should be between "1" and "10".',
                                         'ownerContactId' => 'This is not a valid UUID.',
-                                    ]
+                                    ],
                                 ], $data);
     }
 
@@ -103,7 +103,6 @@ class RegisterTest extends AuthWebTestCase
                             'name' => DomainFixture::NAME,
                             'period' => self::PERIOD,
                             'owner_contact_id' => ContactFixture::ID,
-
                         ])
         );
 

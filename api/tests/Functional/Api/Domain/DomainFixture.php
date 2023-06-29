@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Api\Domain;
 
+use App\Model\Auth\Entity\User\User;
 use App\Model\Domain\Entity\Contact\Contact;
 use App\Model\Domain\Test\Builder\DomainBuilder;
-use App\Model\Auth\Entity\User\User;
 use App\Tests\Functional\Api\Contact\ContactFixture;
 use App\Tests\Functional\UserFixture;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -40,11 +40,11 @@ class DomainFixture extends Fixture implements DependentFixtureInterface
 
         $manager->persist($domain);
 
-        for ($i = 1; $i < 11; $i++) {
+        for ($i = 1; $i < 11; ++$i) {
             $domain = (new DomainBuilder())
                 ->withId(new UuidV4())
                 ->withOwnerId($user->getId())
-                ->withName('test-auto-domain' . $i . '.com')
+                ->withName('test-auto-domain'.$i.'.com')
                 ->withPeriod(rand(1, 10))
                 ->withOwnerContact($contact)
                 ->build();
@@ -62,6 +62,4 @@ class DomainFixture extends Fixture implements DependentFixtureInterface
             ContactFixture::class,
         ];
     }
-
-
 }

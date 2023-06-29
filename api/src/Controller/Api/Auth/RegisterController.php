@@ -7,7 +7,6 @@ namespace App\Controller\Api\Auth;
 use App\Model\Auth\Command\User\Register\Command;
 use App\Model\Auth\Command\User\Register\Handler;
 use App\Validator\Validator;
-use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +27,6 @@ class RegisterController extends AbstractController
 
     /**
      * @Route(path="auth/register", name="auth.register", methods={"POST"})
-     *
      * @OA\RequestBody(
      *     @OA\JsonContent(
      *         type="object",
@@ -39,18 +37,15 @@ class RegisterController extends AbstractController
      *         @OA\Property(property="password", type="string", example="secret")
      *     )
      * )
-     *
      * @OA\Response(
      *     response="201",
      *     description="Success response"
      * )
-     *
      * @OA\Response(
      *     response="409",
      *     description="Error",
      *     @OA\JsonContent(ref="#/components/schemas/Error409")
      * )
-     *
      * @OA\Response(
      *     response="422",
      *     description="Params Validation Errors",
@@ -64,7 +59,6 @@ class RegisterController extends AbstractController
      *         )
      *     )
      * )
-     *
      * @OA\Tag(name="Auth")
      */
     public function register(Request $request, Handler $handler): Response

@@ -18,17 +18,17 @@ class MessageHandler implements MessageHandlerInterface
         $name = $message->getName();
         $currentTime = (new \DateTimeImmutable())->getTimestamp();
         $this->logger->info(
-            '[' . $name . '] Handling started:'
-            . ' Message init time: ' . (string)$message->getTime()
-            . ' Current time: ' . (string)$currentTime
-            . ' Delivery time: ' . (string)($currentTime - $message->getTime())
+            '['.$name.'] Handling started:'
+            .' Message init time: '.(string) $message->getTime()
+            .' Current time: '.(string) $currentTime
+            .' Delivery time: '.(string) ($currentTime - $message->getTime())
         );
 
         sleep(20);
         $currentTime = (new \DateTimeImmutable())->getTimestamp();
         $this->logger->info(
-            '[' . $name . '] Handling finished:'
-            . ' Processing time: ' . (string)($currentTime - $message->getTime())
+            '['.$name.'] Handling finished:'
+            .' Processing time: '.(string) ($currentTime - $message->getTime())
         );
     }
 }

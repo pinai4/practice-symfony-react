@@ -5,7 +5,6 @@ namespace App\Model\Auth\Fixture;
 use App\Model\Auth\Entity\User\Email;
 use App\Model\Auth\Entity\User\User;
 use App\Model\Auth\Service\PasswordHasher;
-use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Uid\UuidV4;
@@ -28,7 +27,7 @@ class UserFixture extends Fixture
             'Sergey User',
             new Email('user@test.com'),
             $this->passwordHasher->hash('secret'),
-            new DateTimeImmutable()
+            new \DateTimeImmutable()
         );
         $manager->persist($user);
 
@@ -37,7 +36,7 @@ class UserFixture extends Fixture
             'Sergey Admin',
             new Email('admin@test.com'),
             $this->passwordHasher->hash('secret'),
-            new DateTimeImmutable()
+            new \DateTimeImmutable()
         );
         $manager->persist($admin);
 

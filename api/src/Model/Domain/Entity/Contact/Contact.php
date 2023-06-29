@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Model\Domain\Entity\Contact;
 
-use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\UuidV4;
 
@@ -28,7 +27,7 @@ class Contact
     /**
      * @ORM\Column(type="datetime_immutable")
      */
-    private DateTimeImmutable $crDate;
+    private \DateTimeImmutable $crDate;
 
     /**
      * @ORM\Embedded(class="Name")
@@ -78,7 +77,7 @@ class Contact
     public function __construct(
         UuidV4 $id,
         UuidV4 $ownerId,
-        DateTimeImmutable $crDate,
+        \DateTimeImmutable $crDate,
         Name $name,
         ?string $organization,
         Email $email,
@@ -119,7 +118,7 @@ class Contact
         return new self(
             $id,
             $ownerId,
-            new DateTimeImmutable(),
+            new \DateTimeImmutable(),
             $name,
             $organization,
             $email,
@@ -131,5 +130,4 @@ class Contact
             $country
         );
     }
-
 }

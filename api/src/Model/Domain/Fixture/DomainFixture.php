@@ -2,16 +2,13 @@
 
 namespace App\Model\Domain\Fixture;
 
-use App\Model\Domain\Entity\Contact\Contact;
-use App\Model\Domain\Entity\Domain\Domain;
 use App\Model\Auth\Entity\User\User;
 use App\Model\Auth\Fixture\UserFixture;
-use DateInterval;
-use DateTimeImmutable;
+use App\Model\Domain\Entity\Contact\Contact;
+use App\Model\Domain\Entity\Domain\Domain;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Exception;
 use Faker\Factory;
 use Symfony\Component\Uid\UuidV4;
 
@@ -20,7 +17,7 @@ class DomainFixture extends Fixture implements DependentFixtureInterface
     public const DOMAIN_REFERENCE = 'domain-reference';
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function load(ObjectManager $manager): void
     {
@@ -34,8 +31,8 @@ class DomainFixture extends Fixture implements DependentFixtureInterface
             new UuidV4(),
             $user->getId(),
             'domain-example.com',
-            new DateTimeImmutable('2021-11-21 01:00:00'),
-            new DateTimeImmutable('2023-11-21 01:00:00'),
+            new \DateTimeImmutable('2021-11-21 01:00:00'),
+            new \DateTimeImmutable('2023-11-21 01:00:00'),
             $contact
         );
 
@@ -45,9 +42,9 @@ class DomainFixture extends Fixture implements DependentFixtureInterface
 
         $faker = Factory::create();
 
-        for ($i = 0; $i < 20; $i++) {
-            $crDate = new DateTimeImmutable($faker->dateTimeThisDecade()->format('Y-m-d H:i:s'));
-            $expDate = $crDate->add(new DateInterval('P' . $faker->numberBetween(1, 10) . 'Y'));
+        for ($i = 0; $i < 20; ++$i) {
+            $crDate = new \DateTimeImmutable($faker->dateTimeThisDecade()->format('Y-m-d H:i:s'));
+            $expDate = $crDate->add(new \DateInterval('P'.$faker->numberBetween(1, 10).'Y'));
 
             $domain = new Domain(
                 new UuidV4(),
@@ -67,7 +64,7 @@ class DomainFixture extends Fixture implements DependentFixtureInterface
     {
         return [
             UserFixture::class,
-            ContactFixture::class
+            ContactFixture::class,
         ];
     }
 }

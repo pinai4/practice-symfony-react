@@ -2,7 +2,6 @@
 
 namespace App\Model\Auth\Entity\User;
 
-use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\UuidV4;
 
@@ -38,14 +37,14 @@ class User
     /**
      * @ORM\Column(type="datetime_immutable")
      */
-    private DateTimeImmutable $date;
+    private \DateTimeImmutable $date;
 
     /**
      * @ORM\Column(type="user_user_role")
      */
     private Role $role;
 
-    private function __construct(UuidV4 $id, string $name, Email $email, string $password, DateTimeImmutable $date, Role $role)
+    private function __construct(UuidV4 $id, string $name, Email $email, string $password, \DateTimeImmutable $date, Role $role)
     {
         $this->id = $id;
         $this->name = $name;
@@ -55,12 +54,12 @@ class User
         $this->role = $role;
     }
 
-    public static function register(UuidV4 $id, string $name, Email $email, string $password, DateTimeImmutable $date): self
+    public static function register(UuidV4 $id, string $name, Email $email, string $password, \DateTimeImmutable $date): self
     {
         return new self($id, $name, $email, $password, $date, Role::user());
     }
 
-    public static function registerAdmin(UuidV4 $id, string $name, Email $email, string $password, DateTimeImmutable $date): self
+    public static function registerAdmin(UuidV4 $id, string $name, Email $email, string $password, \DateTimeImmutable $date): self
     {
         return new self($id, $name, $email, $password, $date, Role::admin());
     }
@@ -85,7 +84,7 @@ class User
         return $this->password;
     }
 
-    public function getDate(): DateTimeImmutable
+    public function getDate(): \DateTimeImmutable
     {
         return $this->date;
     }
@@ -94,5 +93,4 @@ class User
     {
         return $this->role;
     }
-
 }

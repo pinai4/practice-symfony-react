@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Api\Domain;
 
 use App\Tests\Functional\AuthWebTestCase;
-use DateInterval;
-use DateTimeImmutable;
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
-use Exception;
 
 class ShowTest extends AuthWebTestCase
 {
@@ -20,7 +17,7 @@ class ShowTest extends AuthWebTestCase
 
     public function testGuest()
     {
-        $this->client->request('GET', self::URI . '/'. DomainFixture::ID);
+        $this->client->request('GET', self::URI.'/'.DomainFixture::ID);
 
         $response = $this->client->getResponse();
 
@@ -29,7 +26,7 @@ class ShowTest extends AuthWebTestCase
 
     public function testPost()
     {
-        $this->client->request('POST', self::URI . '/'. DomainFixture::ID, [], [], [
+        $this->client->request('POST', self::URI.'/'.DomainFixture::ID, [], [], [
             'HTTP_AUTHORIZATION' => sprintf('Bearer %s', $this->getEncodedAccessToken()),
         ]);
 
@@ -40,7 +37,7 @@ class ShowTest extends AuthWebTestCase
 
     public function testWrongId()
     {
-        $this->client->request('GET', self::URI . '/'. self::WRONG_DOMAIN_ID, [], [], [
+        $this->client->request('GET', self::URI.'/'.self::WRONG_DOMAIN_ID, [], [], [
             'HTTP_AUTHORIZATION' => sprintf('Bearer %s', $this->getEncodedAccessToken()),
         ]);
 
@@ -50,11 +47,11 @@ class ShowTest extends AuthWebTestCase
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testSuccess()
     {
-        $this->client->request('GET', self::URI . '/'. DomainFixture::ID, [], [], [
+        $this->client->request('GET', self::URI.'/'.DomainFixture::ID, [], [], [
             'HTTP_AUTHORIZATION' => sprintf('Bearer %s', $this->getEncodedAccessToken()),
         ]);
 
@@ -71,7 +68,7 @@ class ShowTest extends AuthWebTestCase
 
         self::assertEquals(
             $data['exp_date'],
-            (new DateTimeImmutable($data['cr_date']))->add(new DateInterval('P' . DomainFixture::PERIOD . 'Y'))->format(
+            (new \DateTimeImmutable($data['cr_date']))->add(new \DateInterval('P'.DomainFixture::PERIOD.'Y'))->format(
                 'Y-m-d H:i:s'
             )
         );
@@ -84,7 +81,7 @@ class ShowTest extends AuthWebTestCase
 
     public function testByNameGuest()
     {
-        $this->client->request('GET', self::URI . '/'. DomainFixture::NAME);
+        $this->client->request('GET', self::URI.'/'.DomainFixture::NAME);
 
         $response = $this->client->getResponse();
 
@@ -93,7 +90,7 @@ class ShowTest extends AuthWebTestCase
 
     public function testByNamePost()
     {
-        $this->client->request('POST', self::URI . '/'. DomainFixture::NAME);
+        $this->client->request('POST', self::URI.'/'.DomainFixture::NAME);
 
         $response = $this->client->getResponse();
 
@@ -102,7 +99,7 @@ class ShowTest extends AuthWebTestCase
 
     public function testByNameWrongName()
     {
-        $this->client->request('GET', self::URI . '/'. self::WRONG_DOMAIN_NAME, [], [], [
+        $this->client->request('GET', self::URI.'/'.self::WRONG_DOMAIN_NAME, [], [], [
             'HTTP_AUTHORIZATION' => sprintf('Bearer %s', $this->getEncodedAccessToken()),
         ]);
 
@@ -112,11 +109,11 @@ class ShowTest extends AuthWebTestCase
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testByNameSuccess()
     {
-        $this->client->request('GET', self::URI . '/'. DomainFixture::NAME, [], [], [
+        $this->client->request('GET', self::URI.'/'.DomainFixture::NAME, [], [], [
             'HTTP_AUTHORIZATION' => sprintf('Bearer %s', $this->getEncodedAccessToken()),
         ]);
 
@@ -133,7 +130,7 @@ class ShowTest extends AuthWebTestCase
 
         self::assertEquals(
             $data['exp_date'],
-            (new DateTimeImmutable($data['cr_date']))->add(new DateInterval('P' . DomainFixture::PERIOD . 'Y'))->format(
+            (new \DateTimeImmutable($data['cr_date']))->add(new \DateInterval('P'.DomainFixture::PERIOD.'Y'))->format(
                 'Y-m-d H:i:s'
             )
         );
@@ -143,13 +140,4 @@ class ShowTest extends AuthWebTestCase
                                     'name' => DomainFixture::NAME,
                                 ], $data);
     }
-
-
-
-
-
-
-
-
-
 }

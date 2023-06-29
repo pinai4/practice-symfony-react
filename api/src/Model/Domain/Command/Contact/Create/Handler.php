@@ -10,7 +10,6 @@ use App\Model\Domain\Entity\Contact\Email;
 use App\Model\Domain\Entity\Contact\Name;
 use App\Model\Domain\Entity\Contact\Phone;
 use App\Model\Flusher;
-use DomainException;
 use Symfony\Component\Uid\UuidV4;
 
 class Handler
@@ -27,17 +26,17 @@ class Handler
     public function handle(Command $command): void
     {
         if ($this->repo->hasById(new UuidV4($command->id))) {
-            throw new DomainException('Contact already exists');
+            throw new \DomainException('Contact already exists');
         }
 
         $arrName = explode(' ', $command->name);
         $firstName = array_shift($arrName);
         $secondName = implode(' ', $arrName);
 
-        $phone = str_replace('+','',$command->phone);
+        $phone = str_replace('+', '', $command->phone);
         $arrPhone = explode('.', $phone);
-        $phoneCountryCode = (int)$arrPhone[0];
-        $phoneNumber = (int)$arrPhone[1];
+        $phoneCountryCode = (int) $arrPhone[0];
+        $phoneNumber = (int) $arrPhone[1];
 
         $domain = Contact::create(
             new UuidV4($command->id),

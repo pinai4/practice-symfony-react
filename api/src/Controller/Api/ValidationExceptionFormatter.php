@@ -17,7 +17,7 @@ class ValidationExceptionFormatter implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::EXCEPTION => 'onKernelException'
+            KernelEvents::EXCEPTION => 'onKernelException',
         ];
     }
 
@@ -30,7 +30,7 @@ class ValidationExceptionFormatter implements EventSubscriberInterface
             return;
         }
 
-        $route = (string)$request->attributes->get('_route');
+        $route = (string) $request->attributes->get('_route');
         if (!str_starts_with($route, 'api.')) {
             return;
         }
@@ -49,6 +49,7 @@ class ValidationExceptionFormatter implements EventSubscriberInterface
         foreach ($violations as $violation) {
             $errors[$violation->getPropertyPath()] = $violation->getMessage();
         }
+
         return $errors;
     }
 }

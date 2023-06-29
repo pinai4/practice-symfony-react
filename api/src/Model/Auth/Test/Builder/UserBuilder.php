@@ -6,7 +6,6 @@ namespace App\Model\Auth\Test\Builder;
 
 use App\Model\Auth\Entity\User\Email;
 use App\Model\Auth\Entity\User\User;
-use DateTimeImmutable;
 use Symfony\Component\Uid\UuidV4;
 
 final class UserBuilder
@@ -15,7 +14,7 @@ final class UserBuilder
     private string $name;
     private Email $email;
     private string $password;
-    private DateTimeImmutable $date;
+    private \DateTimeImmutable $date;
 
     public function __construct()
     {
@@ -23,13 +22,14 @@ final class UserBuilder
         $this->name = 'Test User Name';
         $this->email = new Email('mail@example.com');
         $this->password = 'hash';
-        $this->date = new DateTimeImmutable();
+        $this->date = new \DateTimeImmutable();
     }
 
     public function withId(UuidV4 $id): self
     {
         $clone = clone $this;
         $clone->id = $id;
+
         return $clone;
     }
 
@@ -37,6 +37,7 @@ final class UserBuilder
     {
         $clone = clone $this;
         $clone->name = $name;
+
         return $clone;
     }
 
@@ -44,6 +45,7 @@ final class UserBuilder
     {
         $clone = clone $this;
         $clone->email = $email;
+
         return $clone;
     }
 
@@ -51,6 +53,7 @@ final class UserBuilder
     {
         $clone = clone $this;
         $clone->password = $password;
+
         return $clone;
     }
 

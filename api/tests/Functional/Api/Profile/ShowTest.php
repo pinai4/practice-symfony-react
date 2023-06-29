@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Api\Profile;
 
 use App\Tests\Functional\AuthWebTestCase;
-use App\Tests\Functional\OAuth\OAuthFixture;
 use App\Tests\Functional\UserFixture;
 
 class ShowTest extends AuthWebTestCase

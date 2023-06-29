@@ -28,7 +28,6 @@ class CreateController extends AbstractController
 
     /**
      * @Route(path="contacts", name="contacts.create", methods={"POST"})
-     *
      * @OA\RequestBody(
      *     @OA\JsonContent(
      *         type="object",
@@ -45,18 +44,15 @@ class CreateController extends AbstractController
      *         @OA\Property(property="country", type="string", example="ru"),
      *     )
      * )
-     *
      * @OA\Response(
      *     response="201",
      *     description="Success response"
      * )
-     *
      * @OA\Response(
      *     response="409",
      *     description="Error",
      *     @OA\JsonContent(ref="#/components/schemas/Error409")
      * )
-     *
      * @OA\Response(
      *     response="422",
      *     description="Params Validation Errors",
@@ -75,7 +71,6 @@ class CreateController extends AbstractController
      *         )
      *     )
      * )
-     *
      * @OA\Tag(name="Contacts")
      */
     public function create(Request $request, Handler $handler): Response

@@ -79,7 +79,7 @@ class RegisterTest extends AuthWebTestCase
                                         'name' => 'This value is not valid.',
                                         'email' => 'This value is not a valid email address.',
                                         'password' => 'This value is too short. It should have 6 characters or more.',
-                                    ]
+                                    ],
                                 ], $data);
     }
 
@@ -134,6 +134,4 @@ class RegisterTest extends AuthWebTestCase
 
         self::assertArraySubset(['message' => 'User already exists'], $data);
     }
-
-
 }

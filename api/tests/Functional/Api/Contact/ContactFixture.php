@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Api\Contact;
 
+use App\Model\Auth\Entity\User\User;
 use App\Model\Domain\Entity\Contact\Contact;
 use App\Model\Domain\Entity\Contact\Email;
 use App\Model\Domain\Entity\Contact\Name;
 use App\Model\Domain\Entity\Contact\Phone;
-use App\Model\Auth\Entity\User\User;
 use App\Tests\Functional\UserFixture;
-use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -43,7 +42,7 @@ class ContactFixture extends Fixture implements DependentFixtureInterface
         $contact = new Contact(
             new UuidV4(self::ID),
             $user->getId(),
-            new DateTimeImmutable(self::CR_DATE),
+            new \DateTimeImmutable(self::CR_DATE),
             new Name(self::FIRST_NAME, self::LAST_NAME),
             null,
             new Email(self::EMAIL),
@@ -59,20 +58,20 @@ class ContactFixture extends Fixture implements DependentFixtureInterface
 
         $this->addReference(self::REFERENCE, $contact);
 
-        for ($i=1;$i<11;$i++) {
+        for ($i = 1; $i < 11; ++$i) {
             $contact = new Contact(
                 new UuidV4(),
                 $user->getId(),
-                new DateTimeImmutable(),
+                new \DateTimeImmutable(),
                 new Name($i.' List-Tester', 'Surname'),
                 $i.' Company List',
                 new Email($i.'some-email@example.com'),
-                new Phone($i, 1000000+$i),
+                new Phone($i, 1000000 + $i),
                 $i.' Street',
                 $i.' Kyiv',
                 $i.' Kyivska oblast',
                 $i.$i.$i.$i.$i.$i,
-                ((bool)($i%2))?'UA':'RU'
+                ((bool) ($i % 2)) ? 'UA' : 'RU'
             );
 
             $manager->persist($contact);
@@ -84,8 +83,7 @@ class ContactFixture extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            UserFixture::class
+            UserFixture::class,
         ];
     }
-
 }

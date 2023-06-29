@@ -29,5 +29,4 @@ class SecurityPasswordHasher implements PasswordHasher
     {
         return $this->decoratedPasswordHasher->verify($hashedPassword, $plainPassword);
     }
-
 }

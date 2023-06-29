@@ -6,8 +6,6 @@ namespace App\Tests\Functional\Api\Domain;
 
 use App\Tests\Functional\Api\Contact\ContactFixture;
 use App\Tests\Functional\AuthWebTestCase;
-use DateInterval;
-use DateTimeImmutable;
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 
 class IndexTest extends AuthWebTestCase
@@ -67,19 +65,19 @@ class IndexTest extends AuthWebTestCase
                                    [
                                        'id' => DomainFixture::ID,
                                        'name' => DomainFixture::NAME,
-                                       'cr_date' => (new DateTimeImmutable($data['items'][0]['cr_date']))->format(
+                                       'cr_date' => (new \DateTimeImmutable($data['items'][0]['cr_date']))->format(
                                            'Y-m-d H:i:s'
                                        ),
-                                       'exp_date' => (new DateTimeImmutable($data['items'][0]['cr_date']))
-                                           ->add(new DateInterval('P' . DomainFixture::PERIOD . 'Y'))
+                                       'exp_date' => (new \DateTimeImmutable($data['items'][0]['cr_date']))
+                                           ->add(new \DateInterval('P'.DomainFixture::PERIOD.'Y'))
                                            ->format('Y-m-d H:i:s'),
                                        'contacts' => [
                                            [
                                                'type' => 'owner',
-                                               'id' => ContactFixture::ID
-                                           ]
-                                       ]
-                                   ]
+                                               'id' => ContactFixture::ID,
+                                           ],
+                                       ],
+                                   ],
                                ],
                                'pagination' => [
                                    'total' => 1,
@@ -148,7 +146,7 @@ class IndexTest extends AuthWebTestCase
                 2,
                 2,
                 ['total' => 10, 'pages' => 5],
-                ['name' => 'test-auto-domain2.com']
+                ['name' => 'test-auto-domain2.com'],
             ],
             [
                 ['name' => 'test-auto-domain1'],
@@ -157,7 +155,7 @@ class IndexTest extends AuthWebTestCase
                 2,
                 1,
                 ['total' => 2, 'pages' => 2],
-                ['name' => 'test-auto-domain1.com']
+                ['name' => 'test-auto-domain1.com'],
             ],
             [
                 ['name' => 'test-auto-domain2'],
@@ -166,7 +164,7 @@ class IndexTest extends AuthWebTestCase
                 1,
                 5,
                 ['total' => 1, 'pages' => 1],
-                ['name' => 'test-auto-domain2.com']
+                ['name' => 'test-auto-domain2.com'],
             ],
         ];
     }

@@ -6,7 +6,6 @@ namespace App\Tests\Functional\Api\Contact;
 
 use App\Tests\Functional\AuthWebTestCase;
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
-use Exception;
 
 class ShowTest extends AuthWebTestCase
 {
@@ -17,7 +16,7 @@ class ShowTest extends AuthWebTestCase
 
     public function testGuest()
     {
-        $this->client->request('GET', self::URI . '/' . ContactFixture::ID);
+        $this->client->request('GET', self::URI.'/'.ContactFixture::ID);
 
         $response = $this->client->getResponse();
 
@@ -26,7 +25,7 @@ class ShowTest extends AuthWebTestCase
 
     public function testPost()
     {
-        $this->client->request('POST', self::URI . '/' . ContactFixture::ID, [], [], [
+        $this->client->request('POST', self::URI.'/'.ContactFixture::ID, [], [], [
             'HTTP_AUTHORIZATION' => sprintf('Bearer %s', $this->getEncodedAccessToken()),
         ]);
 
@@ -37,7 +36,7 @@ class ShowTest extends AuthWebTestCase
 
     public function testWrongId()
     {
-        $this->client->request('GET', self::URI . '/' . self::WRONG_CONTACT_ID, [], [], [
+        $this->client->request('GET', self::URI.'/'.self::WRONG_CONTACT_ID, [], [], [
             'HTTP_AUTHORIZATION' => sprintf('Bearer %s', $this->getEncodedAccessToken()),
         ]);
 
@@ -47,11 +46,11 @@ class ShowTest extends AuthWebTestCase
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testSuccess()
     {
-        $this->client->request('GET', self::URI . '/' . ContactFixture::ID, [], [], [
+        $this->client->request('GET', self::URI.'/'.ContactFixture::ID, [], [], [
             'HTTP_AUTHORIZATION' => sprintf('Bearer %s', $this->getEncodedAccessToken()),
         ]);
 
@@ -67,15 +66,15 @@ class ShowTest extends AuthWebTestCase
 
         self::assertArraySubset([
                                     'id' => ContactFixture::ID,
-                                    'name' => ContactFixture::FIRST_NAME . ' ' . ContactFixture::LAST_NAME,
+                                    'name' => ContactFixture::FIRST_NAME.' '.ContactFixture::LAST_NAME,
                                     'organization' => null,
                                     'email' => ContactFixture::EMAIL,
-                                    'phone' => '+' . ContactFixture::PHONE_COUNTRY_CODE . '.' . ContactFixture::PHONE_NUMBER,
+                                    'phone' => '+'.ContactFixture::PHONE_COUNTRY_CODE.'.'.ContactFixture::PHONE_NUMBER,
                                     'address' => ContactFixture::ADDRESS,
                                     'city' => ContactFixture::CITY,
                                     'state' => ContactFixture::STATE,
                                     'zip' => ContactFixture::ZIP,
-                                    'country' => ContactFixture::COUNTRY
+                                    'country' => ContactFixture::COUNTRY,
                                 ], $data);
     }
 }

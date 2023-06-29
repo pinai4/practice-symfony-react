@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Api;
 
 use App\Tests\Functional\AuthWebTestCase;
-use App\Tests\Functional\DbWebTestCase;
 
 class HomeTest extends AuthWebTestCase
 {

@@ -10,7 +10,6 @@ use App\Model\Domain\Entity\Domain\DomainRepository;
 use App\Model\Flusher;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
-use DomainException;
 use Symfony\Component\Uid\UuidV4;
 
 class Handler
@@ -33,13 +32,13 @@ class Handler
     public function handle(Command $command): void
     {
         if ($this->domains->hasById(new UuidV4($command->id))) {
-            throw new DomainException('Domain already exists');
+            throw new \DomainException('Domain already exists');
         }
 
         $name = $command->name;
 
         if ($this->domains->hasByName($name)) {
-            throw new DomainException('Domain already exists');
+            throw new \DomainException('Domain already exists');
         }
 
         $ownerContact = $this->contacts->get(new UuidV4($command->ownerContactId));

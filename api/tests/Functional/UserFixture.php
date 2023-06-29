@@ -35,5 +35,4 @@ class UserFixture extends Fixture
 
         $this->addReference(self::REFERENCE, $user);
     }
-
 }

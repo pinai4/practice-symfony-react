@@ -28,7 +28,6 @@ class RegisterController extends AbstractController
 
     /**
      * @Route(path="domains", name="domains.register", methods={"POST"})
-     *
      * @OA\RequestBody(
      *     @OA\JsonContent(
      *         type="object",
@@ -39,18 +38,15 @@ class RegisterController extends AbstractController
      *         @OA\Property(property="owner_contact_id", type="string", format="uuid", example="14b01a9f-b890-4d38-b473-f6f7fcbfd1c9")
      *     )
      * )
-     *
      * @OA\Response(
      *     response="201",
      *     description="Success response"
      * )
-     *
      * @OA\Response(
      *     response="409",
      *     description="Error",
      *     @OA\JsonContent(ref="#/components/schemas/Error409")
      * )
-     *
      * @OA\Response(
      *     response="422",
      *     description="Params Validation Errors",
@@ -64,7 +60,6 @@ class RegisterController extends AbstractController
      *         )
      *     )
      * )
-     *
      * @OA\Tag(name="Domains")
      */
     public function register(Request $request, Handler $handler): Response

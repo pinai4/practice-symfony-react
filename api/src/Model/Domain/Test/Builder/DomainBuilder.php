@@ -29,6 +29,7 @@ class DomainBuilder
     {
         $clone = clone $this;
         $clone->id = $id;
+
         return clone $clone;
     }
 
@@ -36,6 +37,7 @@ class DomainBuilder
     {
         $clone = clone $this;
         $clone->ownerId = $ownerId;
+
         return clone $clone;
     }
 
@@ -43,6 +45,7 @@ class DomainBuilder
     {
         $clone = clone $this;
         $clone->name = $name;
+
         return clone $clone;
     }
 
@@ -50,6 +53,7 @@ class DomainBuilder
     {
         $clone = clone $this;
         $clone->period = $period;
+
         return clone $clone;
     }
 
@@ -57,6 +61,7 @@ class DomainBuilder
     {
         $clone = clone $this;
         $clone->ownerContact = $contact;
+
         return clone $clone;
     }
 
