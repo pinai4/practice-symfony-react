@@ -42,6 +42,7 @@
         "dms/phpunit-arraysubset-asserts": "^0.3.1",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "fakerphp/faker": "^1.23",
+        "friendsofphp/php-cs-fixer": "3.13.2",
         "phpunit/phpunit": "^9.5",
         "psalm/plugin-symfony": "^5.0",
         "symfony/browser-kit": "5.4.*",
@@ -90,6 +91,7 @@
         ],
         "app": "php bin/console --ansi",
         "test": "php bin/phpunit --colors=always",
+        "php-cs-fixer": "php-cs-fixer fix --dry-run --diff",
         "psalm": "psalm"
     },
     "conflict": {
