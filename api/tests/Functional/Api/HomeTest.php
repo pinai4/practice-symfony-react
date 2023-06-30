@@ -13,10 +13,9 @@ class HomeTest extends AuthWebTestCase
         $this->client->request('GET', '/api/');
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());
-        self::assertJson($content = $this->client->getResponse()->getContent());
+        self::assertJson($content = (string) $this->client->getResponse()->getContent());
 
-        $data = json_decode($content, true);
-
+        self::assertIsArray($data = json_decode($content, true));
         self::assertEquals([
             'name' => 'JSON API',
         ], $data);

@@ -14,7 +14,7 @@ class IndexTest extends AuthWebTestCase
 
     private const URI = '/api/domains';
 
-    public function testGuest()
+    public function testGuest(): void
     {
         $this->client->request('GET', self::URI, [], [], ['CONTENT_TYPE' => 'application/json']);
 
@@ -26,7 +26,7 @@ class IndexTest extends AuthWebTestCase
     /**
      * @throws \Exception
      */
-    public function testSuccess()
+    public function testSuccess(): void
     {
         $this->client->request(
             'GET',
@@ -48,11 +48,9 @@ class IndexTest extends AuthWebTestCase
         );
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());
-        self::assertJson($content = $this->client->getResponse()->getContent());
+        self::assertJson($content = (string) $this->client->getResponse()->getContent());
 
-        $data = json_decode($content, true);
-
-        self::assertIsArray($data);
+        self::assertIsArray($data = json_decode($content, true));
         self::assertArrayHasKey('items', $data);
         self::assertArrayHasKey('pagination', $data);
         self::assertIsArray($data['items']);
@@ -60,37 +58,42 @@ class IndexTest extends AuthWebTestCase
 
         self::assertCount(1, $data['items']);
 
+        /** @var non-empty-list<array<string, string>> $items */
+        $items = $data['items'];
+
         self::assertEquals([
-                               'items' => [
-                                   [
-                                       'id' => DomainFixture::ID,
-                                       'name' => DomainFixture::NAME,
-                                       'cr_date' => (new \DateTimeImmutable($data['items'][0]['cr_date']))->format(
-                                           'Y-m-d H:i:s'
-                                       ),
-                                       'exp_date' => (new \DateTimeImmutable($data['items'][0]['cr_date']))
-                                           ->add(new \DateInterval('P'.DomainFixture::PERIOD.'Y'))
-                                           ->format('Y-m-d H:i:s'),
-                                       'contacts' => [
-                                           [
-                                               'type' => 'owner',
-                                               'id' => ContactFixture::ID,
-                                           ],
-                                       ],
-                                   ],
-                               ],
-                               'pagination' => [
-                                   'total' => 1,
-                                   'count' => 1,
-                                   'per_page' => 10,
-                                   'page' => 1,
-                                   'pages' => 1,
-                               ],
-                           ], $data);
+            'items' => [
+                [
+                    'id' => DomainFixture::ID,
+                    'name' => DomainFixture::NAME,
+                    'cr_date' => (new \DateTimeImmutable($items[0]['cr_date']))->format(
+                        'Y-m-d H:i:s'
+                    ),
+                    'exp_date' => (new \DateTimeImmutable($items[0]['cr_date']))
+                        ->add(new \DateInterval('P'.DomainFixture::PERIOD.'Y'))
+                        ->format('Y-m-d H:i:s'),
+                    'contacts' => [
+                        [
+                            'type' => 'owner',
+                            'id' => ContactFixture::ID,
+                        ],
+                    ],
+                ],
+            ],
+            'pagination' => [
+                'total' => 1,
+                'count' => 1,
+                'per_page' => 10,
+                'page' => 1,
+                'pages' => 1,
+            ],
+        ], $data);
     }
 
     /**
      * @dataProvider useCases
+     *
+     * @throws \Exception
      */
     public function testInputParams(
         array $filter,
@@ -100,7 +103,7 @@ class IndexTest extends AuthWebTestCase
         int $perPage,
         array $expectedResultPagination,
         array $expectedResultFirstItem
-    ) {
+    ): void {
         $this->client->request(
             'GET',
             self::URI,
@@ -119,11 +122,9 @@ class IndexTest extends AuthWebTestCase
         );
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());
-        self::assertJson($content = $this->client->getResponse()->getContent());
+        self::assertJson($content = (string) $this->client->getResponse()->getContent());
 
-        $data = json_decode($content, true);
-
-        self::assertIsArray($data);
+        self::assertIsArray($data = json_decode($content, true));
 
         self::assertArrayHasKey('pagination', $data);
         self::assertIsArray($data['pagination']);

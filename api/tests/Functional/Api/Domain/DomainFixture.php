@@ -20,11 +20,9 @@ class DomainFixture extends Fixture implements DependentFixtureInterface
     public const NAME = 'test-domain.com';
     public const PERIOD = 5;
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
-        /**
-         * @var $user User
-         */
+        /** @var User $user */
         $user = $this->getReference(UserFixture::REFERENCE);
 
         /** @var Contact $contact */

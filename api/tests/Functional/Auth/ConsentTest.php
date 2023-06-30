@@ -24,13 +24,13 @@ class ConsentTest extends AuthWebTestCase
         $this->client->request(
             'GET',
             self::URI.'?'.http_build_query([
-                                                   'response_type' => 'code',
-                                                   'client_id' => OAuthFixture::CLIENT_IDENTIFIER,
-                                                   'code_challenge' => PKCE::challenge(PKCE::verifier()),
-                                                   'code_challenge_method' => 'S256',
-                                                   'scope' => OAuthFixture::SCOPE,
-                                                   'state' => 'sTaTe',
-                                               ])
+                'response_type' => 'code',
+                'client_id' => OAuthFixture::CLIENT_IDENTIFIER,
+                'code_challenge' => PKCE::challenge(PKCE::verifier()),
+                'code_challenge_method' => 'S256',
+                'scope' => OAuthFixture::SCOPE,
+                'state' => 'sTaTe',
+            ])
         );
 
         self::assertSame(200, $this->client->getResponse()->getStatusCode());
@@ -43,13 +43,13 @@ class ConsentTest extends AuthWebTestCase
     public function testGuestClickAllow(): void
     {
         $queryParams = http_build_query([
-                                            'response_type' => 'code',
-                                            'client_id' => OAuthFixture::CLIENT_IDENTIFIER,
-                                            'code_challenge' => PKCE::challenge(PKCE::verifier()),
-                                            'code_challenge_method' => 'S256',
-                                            'scope' => OAuthFixture::SCOPE,
-                                            'state' => 'sTaTe',
-                                        ]);
+            'response_type' => 'code',
+            'client_id' => OAuthFixture::CLIENT_IDENTIFIER,
+            'code_challenge' => PKCE::challenge(PKCE::verifier()),
+            'code_challenge_method' => 'S256',
+            'scope' => OAuthFixture::SCOPE,
+            'state' => 'sTaTe',
+        ]);
 
         $this->client->request(
             'GET',
@@ -72,13 +72,13 @@ class ConsentTest extends AuthWebTestCase
         $this->logIn();
 
         $queryParams = http_build_query([
-                                            'response_type' => 'code',
-                                            'client_id' => OAuthFixture::CLIENT_IDENTIFIER,
-                                            'code_challenge' => PKCE::challenge(PKCE::verifier()),
-                                            'code_challenge_method' => 'S256',
-                                            'scope' => OAuthFixture::SCOPE,
-                                            'state' => 'sTaTe',
-                                        ]);
+            'response_type' => 'code',
+            'client_id' => OAuthFixture::CLIENT_IDENTIFIER,
+            'code_challenge' => PKCE::challenge(PKCE::verifier()),
+            'code_challenge_method' => 'S256',
+            'scope' => OAuthFixture::SCOPE,
+            'state' => 'sTaTe',
+        ]);
 
         $this->client->request(
             'GET',
@@ -115,13 +115,13 @@ class ConsentTest extends AuthWebTestCase
     public function testGuestClickDeny(): void
     {
         $queryParams = http_build_query([
-                                            'response_type' => 'code',
-                                            'client_id' => OAuthFixture::CLIENT_IDENTIFIER,
-                                            'code_challenge' => PKCE::challenge(PKCE::verifier()),
-                                            'code_challenge_method' => 'S256',
-                                            'scope' => OAuthFixture::SCOPE,
-                                            'state' => 'sTaTe',
-                                        ]);
+            'response_type' => 'code',
+            'client_id' => OAuthFixture::CLIENT_IDENTIFIER,
+            'code_challenge' => PKCE::challenge(PKCE::verifier()),
+            'code_challenge_method' => 'S256',
+            'scope' => OAuthFixture::SCOPE,
+            'state' => 'sTaTe',
+        ]);
 
         $this->client->request(
             'GET',
@@ -144,13 +144,13 @@ class ConsentTest extends AuthWebTestCase
         $this->logIn();
 
         $queryParams = http_build_query([
-                                            'response_type' => 'code',
-                                            'client_id' => OAuthFixture::CLIENT_IDENTIFIER,
-                                            'code_challenge' => PKCE::challenge(PKCE::verifier()),
-                                            'code_challenge_method' => 'S256',
-                                            'scope' => OAuthFixture::SCOPE,
-                                            'state' => 'sTaTe',
-                                        ]);
+            'response_type' => 'code',
+            'client_id' => OAuthFixture::CLIENT_IDENTIFIER,
+            'code_challenge' => PKCE::challenge(PKCE::verifier()),
+            'code_challenge_method' => 'S256',
+            'scope' => OAuthFixture::SCOPE,
+            'state' => 'sTaTe',
+        ]);
 
         $this->client->request(
             'GET',

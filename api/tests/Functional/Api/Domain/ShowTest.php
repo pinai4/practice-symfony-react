@@ -15,7 +15,7 @@ class ShowTest extends AuthWebTestCase
     private const WRONG_DOMAIN_ID = '11111111-1111-4111-1111-111111111111';
     private const WRONG_DOMAIN_NAME = 'some-wrong-domain.com';
 
-    public function testGuest()
+    public function testGuest(): void
     {
         $this->client->request('GET', self::URI.'/'.DomainFixture::ID);
 
@@ -24,7 +24,7 @@ class ShowTest extends AuthWebTestCase
         $this->assertSame(401, $response->getStatusCode());
     }
 
-    public function testPost()
+    public function testPost(): void
     {
         $this->client->request('POST', self::URI.'/'.DomainFixture::ID, [], [], [
             'HTTP_AUTHORIZATION' => sprintf('Bearer %s', $this->getEncodedAccessToken()),
@@ -35,7 +35,7 @@ class ShowTest extends AuthWebTestCase
         $this->assertSame(405, $response->getStatusCode());
     }
 
-    public function testWrongId()
+    public function testWrongId(): void
     {
         $this->client->request('GET', self::URI.'/'.self::WRONG_DOMAIN_ID, [], [], [
             'HTTP_AUTHORIZATION' => sprintf('Bearer %s', $this->getEncodedAccessToken()),
@@ -49,7 +49,7 @@ class ShowTest extends AuthWebTestCase
     /**
      * @throws \Exception
      */
-    public function testSuccess()
+    public function testSuccess(): void
     {
         $this->client->request('GET', self::URI.'/'.DomainFixture::ID, [], [], [
             'HTTP_AUTHORIZATION' => sprintf('Bearer %s', $this->getEncodedAccessToken()),
@@ -59,11 +59,11 @@ class ShowTest extends AuthWebTestCase
 
         $this->assertSame(200, $response->getStatusCode());
 
-        self::assertJson($content = $this->client->getResponse()->getContent());
+        self::assertJson($content = (string) $this->client->getResponse()->getContent());
 
-        $data = json_decode($content, true);
-
+        self::assertIsArray($data = json_decode($content, true));
         self::assertArrayHasKey('cr_date', $data);
+        self::assertIsString($data['cr_date']);
         self::assertArrayHasKey('exp_date', $data);
 
         self::assertEquals(
@@ -74,12 +74,12 @@ class ShowTest extends AuthWebTestCase
         );
 
         self::assertArraySubset([
-                               'id' => DomainFixture::ID,
-                               'name' => DomainFixture::NAME,
-                           ], $data);
+            'id' => DomainFixture::ID,
+            'name' => DomainFixture::NAME,
+        ], $data);
     }
 
-    public function testByNameGuest()
+    public function testByNameGuest(): void
     {
         $this->client->request('GET', self::URI.'/'.DomainFixture::NAME);
 
@@ -88,7 +88,7 @@ class ShowTest extends AuthWebTestCase
         $this->assertSame(401, $response->getStatusCode());
     }
 
-    public function testByNamePost()
+    public function testByNamePost(): void
     {
         $this->client->request('POST', self::URI.'/'.DomainFixture::NAME);
 
@@ -97,7 +97,7 @@ class ShowTest extends AuthWebTestCase
         $this->assertSame(405, $response->getStatusCode());
     }
 
-    public function testByNameWrongName()
+    public function testByNameWrongName(): void
     {
         $this->client->request('GET', self::URI.'/'.self::WRONG_DOMAIN_NAME, [], [], [
             'HTTP_AUTHORIZATION' => sprintf('Bearer %s', $this->getEncodedAccessToken()),
@@ -111,7 +111,7 @@ class ShowTest extends AuthWebTestCase
     /**
      * @throws \Exception
      */
-    public function testByNameSuccess()
+    public function testByNameSuccess(): void
     {
         $this->client->request('GET', self::URI.'/'.DomainFixture::NAME, [], [], [
             'HTTP_AUTHORIZATION' => sprintf('Bearer %s', $this->getEncodedAccessToken()),
@@ -121,11 +121,11 @@ class ShowTest extends AuthWebTestCase
 
         $this->assertSame(200, $response->getStatusCode());
 
-        self::assertJson($content = $this->client->getResponse()->getContent());
+        self::assertJson($content = (string) $this->client->getResponse()->getContent());
 
-        $data = json_decode($content, true);
-
+        self::assertIsArray($data = json_decode($content, true));
         self::assertArrayHasKey('cr_date', $data);
+        self::assertIsString($data['cr_date']);
         self::assertArrayHasKey('exp_date', $data);
 
         self::assertEquals(
@@ -136,8 +136,8 @@ class ShowTest extends AuthWebTestCase
         );
 
         self::assertArraySubset([
-                                    'id' => DomainFixture::ID,
-                                    'name' => DomainFixture::NAME,
-                                ], $data);
+            'id' => DomainFixture::ID,
+            'name' => DomainFixture::NAME,
+        ], $data);
     }
 }

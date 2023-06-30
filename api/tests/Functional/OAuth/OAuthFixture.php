@@ -39,9 +39,7 @@ class OAuthFixture extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        /**
-         * @var $user User
-         */
+        /** @var User $user */
         $user = $this->getReference(UserFixture::REFERENCE);
 
         $client = self::createClient();

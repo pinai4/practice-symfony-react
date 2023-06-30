@@ -20,7 +20,7 @@ class UserFixture extends Fixture
 
     public const REFERENCE = 'test-user-reference';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $user = (new UserBuilder())
             ->withId(new UuidV4(self::ID))

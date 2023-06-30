@@ -13,7 +13,7 @@ class IndexTest extends AuthWebTestCase
 
     private const URI = '/api/contacts';
 
-    public function testGuest()
+    public function testGuest(): void
     {
         $this->client->request('GET', self::URI, [], [], ['CONTENT_TYPE' => 'application/json']);
 
@@ -22,7 +22,7 @@ class IndexTest extends AuthWebTestCase
         $this->assertSame(401, $response->getStatusCode());
     }
 
-    public function testSuccess()
+    public function testSuccess(): void
     {
         $this->client->request(
             'GET',
@@ -51,11 +51,9 @@ class IndexTest extends AuthWebTestCase
         );
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());
-        self::assertJson($content = $this->client->getResponse()->getContent());
+        self::assertJson($content = (string) $this->client->getResponse()->getContent());
 
-        $data = json_decode($content, true);
-
-        self::assertIsArray($data);
+        self::assertIsArray($data = json_decode($content, true));
         self::assertArrayHasKey('items', $data);
         self::assertArrayHasKey('pagination', $data);
         self::assertIsArray($data['items']);
@@ -64,33 +62,35 @@ class IndexTest extends AuthWebTestCase
         self::assertCount(1, $data['items']);
 
         self::assertEquals([
-                               'items' => [
-                                   [
-                                       'id' => ContactFixture::ID,
-                                       'cr_date' => ContactFixture::CR_DATE,
-                                       'name' => ContactFixture::FIRST_NAME.' '.ContactFixture::LAST_NAME,
-                                       'organization' => null,
-                                       'email' => ContactFixture::EMAIL,
-                                       'phone' => '+'.ContactFixture::PHONE_COUNTRY_CODE.'.'.ContactFixture::PHONE_NUMBER,
-                                       'address' => ContactFixture::ADDRESS,
-                                       'city' => ContactFixture::CITY,
-                                       'state' => ContactFixture::STATE,
-                                       'zip' => ContactFixture::ZIP,
-                                       'country' => ContactFixture::COUNTRY,
-                                   ],
-                               ],
-                               'pagination' => [
-                                   'total' => 1,
-                                   'count' => 1,
-                                   'per_page' => 10,
-                                   'page' => 1,
-                                   'pages' => 1,
-                               ],
-                           ], $data);
+            'items' => [
+                [
+                    'id' => ContactFixture::ID,
+                    'cr_date' => ContactFixture::CR_DATE,
+                    'name' => ContactFixture::FIRST_NAME.' '.ContactFixture::LAST_NAME,
+                    'organization' => null,
+                    'email' => ContactFixture::EMAIL,
+                    'phone' => '+'.ContactFixture::PHONE_COUNTRY_CODE.'.'.ContactFixture::PHONE_NUMBER,
+                    'address' => ContactFixture::ADDRESS,
+                    'city' => ContactFixture::CITY,
+                    'state' => ContactFixture::STATE,
+                    'zip' => ContactFixture::ZIP,
+                    'country' => ContactFixture::COUNTRY,
+                ],
+            ],
+            'pagination' => [
+                'total' => 1,
+                'count' => 1,
+                'per_page' => 10,
+                'page' => 1,
+                'pages' => 1,
+            ],
+        ], $data);
     }
 
     /**
      * @dataProvider useCases
+     *
+     * @throws \Exception
      */
     public function testInputParams(
         array $filter,
@@ -100,7 +100,7 @@ class IndexTest extends AuthWebTestCase
         int $perPage,
         array $expectedResultPagination,
         array $expectedResultFirstItem
-    ) {
+    ): void {
         $this->client->request(
             'GET',
             self::URI,
@@ -119,11 +119,9 @@ class IndexTest extends AuthWebTestCase
         );
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());
-        self::assertJson($content = $this->client->getResponse()->getContent());
+        self::assertJson($content = (string) $this->client->getResponse()->getContent());
 
-        $data = json_decode($content, true);
-
-        self::assertIsArray($data);
+        self::assertIsArray($data = json_decode($content, true));
 
         self::assertArrayHasKey('pagination', $data);
         self::assertIsArray($data['pagination']);

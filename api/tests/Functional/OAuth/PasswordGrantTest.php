@@ -15,6 +15,9 @@ class PasswordGrantTest extends AuthWebTestCase
 
     private const URI = '/token';
 
+    /**
+     * @throws \Exception
+     */
     public function testSuccess(): void
     {
         $this->client->request('POST', self::URI, [
@@ -28,13 +31,12 @@ class PasswordGrantTest extends AuthWebTestCase
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        self::assertJson($content = $this->client->getResponse()->getContent());
+        self::assertJson($content = (string) $this->client->getResponse()->getContent());
 
-        $data = json_decode($content, true);
-
+        self::assertIsArray($data = json_decode($content, true));
         self::assertArraySubset([
-                                    'token_type' => 'Bearer',
-                                ], $data);
+            'token_type' => 'Bearer',
+        ], $data);
 
         self::assertArrayHasKey('expires_in', $data);
         self::assertNotEmpty($data['expires_in']);

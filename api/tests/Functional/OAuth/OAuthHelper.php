@@ -21,14 +21,19 @@ final class OAuthHelper
 
     public static function generateEncryptedPayload(RefreshTokenModel $refreshToken): ?string
     {
+        $scopes = [];
+        if (!is_null($refreshToken->getAccessToken())) {
+            $scopes = array_map('strval', $refreshToken->getAccessToken()->getScopes());
+        }
+
         $payload = json_encode([
-                                   'client_id' => $refreshToken->getAccessToken()->getClient()->getIdentifier(),
-                                   'refresh_token_id' => $refreshToken->getIdentifier(),
-                                   'access_token_id' => $refreshToken->getAccessToken()->getIdentifier(),
-                                   'scopes' => array_map('strval', $refreshToken->getAccessToken()->getScopes()),
-                                   'user_id' => $refreshToken->getAccessToken()->getUserIdentifier(),
-                                   'expire_time' => $refreshToken->getExpiry()->getTimestamp(),
-                               ]);
+            'client_id' => $refreshToken->getAccessToken()?->getClient()->getIdentifier(),
+            'refresh_token_id' => $refreshToken->getIdentifier(),
+            'access_token_id' => $refreshToken->getAccessToken()?->getIdentifier(),
+            'scopes' => $scopes,
+            'user_id' => $refreshToken->getAccessToken()?->getUserIdentifier(),
+            'expire_time' => $refreshToken->getExpiry()->getTimestamp(),
+        ]);
 
         try {
             return Crypto::encryptWithPassword($payload, self::ENCRYPTION_KEY);
@@ -43,15 +48,15 @@ final class OAuthHelper
         string $challengeMethod
     ): ?string {
         $payload = json_encode([
-                                   'client_id' => $authCode->getClient()->getIdentifier(),
-                                   'redirect_uri' => (string) $authCode->getClient()->getRedirectUris()[0],
-                                   'auth_code_id' => $authCode->getIdentifier(),
-                                   'scopes' => array_map('strval', $authCode->getScopes()),
-                                   'user_id' => $authCode->getUserIdentifier(),
-                                   'expire_time' => $authCode->getExpiryDateTime()->getTimestamp(),
-                                   'code_challenge' => $challenge,
-                                   'code_challenge_method' => $challengeMethod,
-                               ]);
+            'client_id' => $authCode->getClient()->getIdentifier(),
+            'redirect_uri' => (string) $authCode->getClient()->getRedirectUris()[0],
+            'auth_code_id' => $authCode->getIdentifier(),
+            'scopes' => array_map('strval', $authCode->getScopes()),
+            'user_id' => $authCode->getUserIdentifier(),
+            'expire_time' => $authCode->getExpiryDateTime()->getTimestamp(),
+            'code_challenge' => $challenge,
+            'code_challenge_method' => $challengeMethod,
+        ]);
 
         try {
             return Crypto::encryptWithPassword($payload, self::ENCRYPTION_KEY);
@@ -78,7 +83,7 @@ final class OAuthHelper
         $accessTokenEntity = new AccessTokenEntity();
         $accessTokenEntity->setPrivateKey(new CryptKey(self::PRIVATE_KEY_PATH, null, false));
         $accessTokenEntity->setIdentifier($accessToken->getIdentifier());
-        $accessTokenEntity->setExpiryDateTime($accessToken->getExpiry());
+        $accessTokenEntity->setExpiryDateTime(\DateTimeImmutable::createFromInterface($accessToken->getExpiry()));
         $accessTokenEntity->setClient($clientEntity);
         $accessTokenEntity->setUserIdentifier($accessToken->getUserIdentifier());
 

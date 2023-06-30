@@ -32,11 +32,9 @@ class ContactFixture extends Fixture implements DependentFixtureInterface
 
     public const REFERENCE = 'test-contact-reference';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
-        /**
-         * @var $user User
-         */
+        /** @var User $user */
         $user = $this->getReference(UserFixture::REFERENCE);
 
         $contact = new Contact(

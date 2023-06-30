@@ -21,6 +21,9 @@ class AuthorizationCodeGrantTest extends AuthWebTestCase
         self::assertEquals(405, $this->client->getResponse()->getStatusCode());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testSuccess(): void
     {
         $verifier = PKCE::verifier();
@@ -42,13 +45,12 @@ class AuthorizationCodeGrantTest extends AuthWebTestCase
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        self::assertJson($content = $this->client->getResponse()->getContent());
+        self::assertJson($content = (string) $this->client->getResponse()->getContent());
 
-        $data = json_decode($content, true);
-
+        self::assertIsArray($data = json_decode($content, true));
         self::assertArraySubset([
-                                    'token_type' => 'Bearer',
-                                ], $data);
+            'token_type' => 'Bearer',
+        ], $data);
 
         self::assertArrayHasKey('expires_in', $data);
         self::assertNotEmpty($data['expires_in']);
