@@ -64,6 +64,12 @@ api-analyze:
 api-analyze-fix-dry:
 	docker-compose run --rm api-php-cli composer psalm -- --alter --issues=all --dry-run
 
+api-linter-check:
+	docker-compose run --rm api-php-cli vendor/bin/php-cs-fixer fix --diff --dry-run
+
+api-linter-fix:
+	docker-compose run --rm api-php-cli vendor/bin/php-cs-fixer fix
+
 frontend-clear:
 	docker run --rm -v ${PWD}/frontend:/app -w /app alpine sh -c 'rm -rf .ready build'
 
