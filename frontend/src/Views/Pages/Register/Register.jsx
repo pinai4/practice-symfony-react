@@ -142,7 +142,7 @@ const Register = () => {
                     </p>
                     <hr />
                     <p className="mb-0">
-                      Go to <CAlertLink href="#">Log In</CAlertLink> form.
+                      Go to <CAlertLink href="/">Log In</CAlertLink> form.
                     </p>
                   </CAlert>
                 )}
